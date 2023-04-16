@@ -1,6 +1,6 @@
-// Player Class
+// Entity Class, parent class for things like Player and Enemy
 
-class Player {
+class Entity {
 
    //stats
    private int HP;      //hit points
@@ -10,7 +10,7 @@ class Player {
    private int AVO;     //avoid
    
    //constructor
-   public Player(int hp, int str, int def, int acc, int avo){
+   public Entity(int hp, int str, int def, int acc, int avo){
       HP = hp;
       STR = str;
       DEF = def;
