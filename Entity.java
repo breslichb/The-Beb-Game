@@ -50,17 +50,16 @@ class Entity {
       }
    }
    
-   //attack an enemy//
-   *** Should be reused for enemies ***
-   public int attack(Enemy enemy){
-      int chance = ACC - enemy.avo;
+   //attack another Entity//
+   public int attack(Entity target){
+      int chance = ACC - target.avo;
       int damage = 0;
       if (range < 0){
          return damage;
       }else{
          int hit = random.nextInt(0, 101);
          if (hit <= chance){
-            damage = STR - enemy.defense;
+            damage = STR - target.defense;
          }else{
             return damage;
          }
