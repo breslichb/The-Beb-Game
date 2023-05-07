@@ -16,6 +16,10 @@ public class Item implements Serializable {
     private int size;       //The "size" or "weight" of the Item
 
     /***
+     * Default Constructor
+     */
+    public Item(){}
+    /***
      * Constructor for an Item object.
      * @param name The name of the Item.
      * @param desc The description of the Item.
