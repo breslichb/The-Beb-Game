@@ -29,7 +29,7 @@ public class Item implements Serializable {
 
     /***
      * Getter method to retrieve the name of the Item.
-     * @return String Returns the value of the name field.
+     * @return the value of the name field.
      */
     public String getName(){
         return name;
@@ -37,7 +37,7 @@ public class Item implements Serializable {
 
     /***
      * Getter method to retrieve the size of the Item.
-     * @return int Returns the value of the size field.
+     * @return the value of the size field.
      */
     public int getSize(){
         return size;
@@ -45,7 +45,7 @@ public class Item implements Serializable {
 
     /***
      * The toString method which will return the description of the Item.
-     * @return String Returns the value of the desc field.
+     * @return the value of the desc field.
      */
     public String toString(){
         return desc;
