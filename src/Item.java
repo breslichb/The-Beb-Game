@@ -7,7 +7,7 @@
  * @version 1.0
  * @since 5.6.2023
  */
-
+import java.io.Serializable;
 public class Item implements Serializable {
 
     //Fields
