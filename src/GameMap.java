@@ -67,4 +67,24 @@ public class GameMap implements Serializable {
     private void generateRooms(int startX, int startY, int numQuests, int numEnemies) {
 
     }
+
+    public boolean canMove(int startX, int startY, Direction dir) {
+        switch(dir) {
+            case NORTH -> {
+                return rooms[startY - 1][startX] != null;
+            }
+            case SOUTH -> {
+                return rooms[startY + 1][startX] != null;
+            }
+            case EAST -> {
+                return rooms[startY][startX + 1] != null;
+            }
+            case WEST -> {
+                return rooms[startY][startX - 1] != null;
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
 }
