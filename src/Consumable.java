@@ -11,6 +11,7 @@ public class Consumable extends Item {
 
     //fields
     private int uses;   //the uses available for the Consumable
+    private int effect; //the numerical effect on whatever stat the consumable affects
 
     /***
      * The constructor for a Consumable object.
@@ -18,10 +19,12 @@ public class Consumable extends Item {
      * @param desc description of the Consumable
      * @param size "size" or "weight" of the Consumable
      * @param uses how many uses the Consumable has
+     * @param effect numerical effect on a stat
      */
-    public Consumable(String name, String desc, int size, int uses){
+    public Consumable(String name, String desc, int size, int uses, int effect){
         super(name, desc, size);
         this.uses = uses;
+        this.effect = effect;
     }
 
     /***

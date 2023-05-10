@@ -1,12 +1,3 @@
-/***
- * <h1>The Item Superclass</h1>
- *
- * This is the Superclass used for all items within The BEB Game.
- *
- * @Author Elijah Johnson
- * @version 1.0
- * @since 5.6.2023
- */
 import java.io.Serializable;
 
 /***
