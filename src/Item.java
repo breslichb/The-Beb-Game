@@ -8,6 +8,14 @@
  * @since 5.6.2023
  */
 import java.io.Serializable;
+
+/***
+ * Main superclass for all Items within The BEB Game.
+ *
+ * @author Elijah Johnson
+ * @version 1.0
+ * @since 5.6.2023
+ */
 public class Item implements Serializable {
 
     //Fields

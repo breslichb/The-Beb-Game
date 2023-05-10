@@ -1,3 +1,12 @@
+/***
+ * Subclass of Item. Consumables will consist of items
+ * like Potions or Food that the Player will 'consume'
+ * to evoke an effect.
+ *
+ * @author Elijah Johnson
+ * @version 1.0
+ * @since 5.6.2023
+ */
 public class Consumable extends Item {
 
     //fields

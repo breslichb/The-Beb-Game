@@ -1,6 +1,15 @@
+/***
+ * Subclass of Item. Equipables will be items the
+ * Player can 'equip' on their character to improve stats
+ * like Defense and Strength. This consists of Armor and Weapons.
+ *
+ * @author Elijah Johnson
+ * @version 1.0
+ * @since 5.6.2023
+ */
 public class Equipable extends Item {
 
-    //Find a way to have the Enums available for every class, especially the Driver
+    //enum to be used for equipping
     public enum Slot{HEAD, CHEST, LEGS, ARMS, HAND};
 
     //fields
