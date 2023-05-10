@@ -65,7 +65,7 @@ public class GameMap implements Serializable {
      * @param numEnemies The number of enemy-containing rooms to generate (excluding possible quest enemies)
      */
     private void generateRooms(int startX, int startY, int numQuests, int numEnemies) {
-
+        return;
     }
 
     public boolean canMove(int startX, int startY, Direction dir) {
