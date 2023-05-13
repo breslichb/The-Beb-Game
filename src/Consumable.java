@@ -4,8 +4,8 @@
  * to evoke an effect.
  *
  * @author Elijah Johnson
- * @version 1.0
- * @since 5.6.2023
+ * @version 1.1
+ * @since 5.13.2023
  */
 public class Consumable extends Item {
 
@@ -41,4 +41,10 @@ public class Consumable extends Item {
     public int getUses(){
         return uses;
     }
+
+    /***
+     * Getter method to retrieve the effect on what stat the Consumable will affect.
+     * @return how many points the stat will be increased/restored
+     */
+    public int getEffect(){return effect;}
 }
