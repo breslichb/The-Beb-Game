@@ -26,6 +26,6 @@ public class Potion extends Consumable{
      * Getter method to retrieve how long the Potion effect lasts
      * @return how long the effect lasts
      */
-    public int getDuration(){return duration}
+    public int getDuration(){return duration;}
 
 }
