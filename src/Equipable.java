@@ -9,13 +9,17 @@
  */
 public class Equipable extends Item {
 
-    //enum to be used for equipping
+    /**enum to be used for equipping*/
     public enum Slot{HEAD, CHEST, LEGS, ARMS, HAND};
 
-    //fields
-    private Slot slot;          //determines which armor slot the Equipable will go
-    private int[] mods;         //the modifiers for the player's stats
-    private int durability;     //how many times the Equipable can be used/hit
+    /**determines which armor slot the Equipable will go*/
+    private Slot slot;
+
+    /**the modifiers for the player's stats*/
+    private int[] mods;
+
+    /**how many times the Equipable can be used/hit*/
+    private int durability;
 
     /***
      * The Constructor for an Equipable object.

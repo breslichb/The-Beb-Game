@@ -8,6 +8,8 @@
  * @since 5.13.2023
  */
 public class Potion extends Consumable{
+
+    /**How long the Potion effect lasts*/
     private int duration;
 
     /***

@@ -9,9 +9,10 @@
  */
 public class Consumable extends Item {
 
-    //fields
-    private int uses;   //the uses available for the Consumable
-    private int effect; //the numerical effect on whatever stat the consumable affects
+    /**The uses available for the Consumable*/
+    private int uses;
+    /**the numerical effect on whatever stat the consumable affects*/
+    private int effect;
 
     /***
      * The constructor for a Consumable object.
