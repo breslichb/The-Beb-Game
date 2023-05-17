@@ -13,12 +13,11 @@ public class Weapon extends Equipable {
      * @param name name for the Item
      * @param desc description for the Item
      * @param size "size" or "weight" for the Item
-     * @param slot which slot the Item will equip to
      * @param mods the modifiers for the Player's stats. In order: Max HP, STR, DEF, LUCK
      * @param durability the number of uses or hits the Item has
      */
-    public Weapon(String name, String desc, int size, Slot slot, int[] mods, int durability){
-        super(name, desc, size, slot, mods, durability);
+    public Weapon(String name, String desc, int size, int[] mods, int durability){
+        super(name, desc, size, Slot.HAND, mods, durability);
     }
 
     /***

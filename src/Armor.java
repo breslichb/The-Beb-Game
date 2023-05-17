@@ -37,6 +37,3 @@ public class Armor extends Equipable {
         return hit;
     }
 }
-
-
-}
