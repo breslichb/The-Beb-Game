@@ -36,12 +36,21 @@ public class Main {
         int HP=0;
         if(rand.nextBool()){HP = rand.nextInt(10)+1;}
 
-        int slot = rand.nextInt(4)+1;
-        switch(slot){
+        Equipable.Slot slot;
+        int slotNum = rand.nextInt(4)+1;
+        switch(slotNum){
             case 1:
+                slot = Equipable.Slot.HEAD;
+                break;
             case 2:
+                slot = Equipable.Slot.CHEST;
+                break;
             case 3:
+                slot = Equipable.Slot.LEGS;
+                break;
             case 4:
+                slot = Equipable.Slot.ARMS;
+                break;
         }
 
         int[] mods = new int[]{
@@ -64,8 +73,6 @@ public class Main {
 
 
      */
-
-
 
     public static void main(String[] args) {
         // Main UI stuff should go here.
