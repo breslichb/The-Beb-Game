@@ -35,7 +35,7 @@ public class Weapon extends Equipable {
 
         if(hitChance > enemyAvo){                       //hits if hitChance is greater than enemyAvo
             damage = playerStr + this.getMods()[1];     //Player STR stat + Weapon STR stat
-            this.setDurability(this.getDurability()-1);
+            this.setDurability(this.getDurability()-1); //Reduce durability
         }
 
         return damage;
