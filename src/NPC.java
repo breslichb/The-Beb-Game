@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class NPC extends Mobs {
     private Quest quest;
 
@@ -5,19 +6,26 @@ public class NPC extends Mobs {
         super(hp, def, attack, name, description);
         this.quest = quest;
     }
-    public boolean talk() {
 
+    public boolean talk() {
+        System.out.println("NPC: Hello, adventurer! How is your day going?");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Player: ");
+        String response = scanner.nextLine();
+        if (response.equalsIgnoreCase("good")) {
+            System.out.println("NPC: That's great to hear! Can I offer you a quest?");
+            return true;
+        } else {
+            System.out.println("NPC: I'm sorry to hear that.");
+            return false;
+        }
     }
+
     public Quest getQuest() {
         return quest;
     }
 
-        public Quest giveQuest() {
+    public Quest giveQuest() {
         return quest;
     }
-    /*    public void giveQuest(Player player, Quest quest) {
-        System.out.println("Here is some quest: " + quest.getDescription());
-        player.addQuest(quest);
-    }*/
-
 }
