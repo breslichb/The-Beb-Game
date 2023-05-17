@@ -4,8 +4,8 @@
  * like Defense and Strength. This consists of Armor and Weapons.
  *
  * @author Elijah Johnson
- * @version 1.0
- * @since 5.6.2023
+ * @version 1.1
+ * @since 5.17.2023
  */
 public class Equipable extends Item {
 
@@ -15,7 +15,7 @@ public class Equipable extends Item {
     /**determines which armor slot the Equipable will go*/
     private Slot slot;
 
-    /**the modifiers for the player's stats*/
+    /**the modifiers for the player's stats, in order: Max HP, STR, DEF, LUCK*/
     private int[] mods;
 
     /**how many times the Equipable can be used/hit*/
@@ -27,7 +27,7 @@ public class Equipable extends Item {
      * @param desc description for the Item
      * @param size "size" or "weight" for the Item
      * @param slot which slot the Item will equip to
-     * @param mods the modifiers for the Player's stats
+     * @param mods the modifiers for the Player's stats. In order: Max HP, STR, DEF, LUCK
      * @param durability the number of uses or hits the Item has
      */
     public Equipable(String name, String desc, int size, Slot slot, int[] mods, int durability){
@@ -62,6 +62,17 @@ public class Equipable extends Item {
     }
 
     /***
+     * Setter to set a new durability - used when a hit is successful
+     * @param x the new value of durability
+     */
+    public void setDurability(int x){
+        durability = x;
+        if(durability<=0){
+            unequip();
+        }
+    }
+
+    /***
      * Method to call when the Player tries to equip an item.
      * @return true if the item will equip, false if the item cannot be equipped
      */
@@ -69,6 +80,12 @@ public class Equipable extends Item {
         //code will come later when things are more fleshed out
         return true;
     }
-
-
+    /***
+     * Method to call when the Player tries to unequip an item.
+     * @return true if the item will equip, false if the item cannot be equipped
+     */
+    public boolean unequip(){
+        //code will come later when things are more fleshed out
+        return true;
+    }
 }
