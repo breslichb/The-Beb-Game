@@ -15,8 +15,8 @@ public class Mobs {
         this.attack = attack;
         this.name = name;
         this.description = description;
+        this.damageTaken = 0;
     }
-
     public int getHp() {
         return hp;
     }
@@ -42,12 +42,15 @@ public class Mobs {
     }
 
     public void attack(Mobs target) {
-        int damageDealt = this.attack - target.getDef();
+        int damageDealt = Math.max(this.attack - target.getDef(), 0);
         target.receiveDamage(damageDealt);
     }
 
     public void receiveDamage(int damage) {
         damageTaken += damage;
         hp -= damage;
+        if (hp < 0) {
+            hp = 0;
+        }
     }
 }
