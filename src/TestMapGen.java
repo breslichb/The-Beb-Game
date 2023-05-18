@@ -32,17 +32,17 @@ public class TestMapGen {
     void recursiveTestRooms(int x, int y, ArrayList<Room> remainingRooms) {
         Room r = g.getRoomByCoords(x, y);
         remainingRooms.remove(r);
-        if(remainingRooms.contains(g.getRoomByCoords(x, y-1))) {
-            recursiveTestRooms(x, y-1, remainingRooms);
+        if(g.canMove(x, y, GameMap.Direction.NORTH)) {
+            recursiveTestRooms(x, y - 1, remainingRooms);
         }
-        if(remainingRooms.contains(g.getRoomByCoords(x, y+1))) {
-            recursiveTestRooms(x, y+1, remainingRooms);
+        if(g.canMove(x, y, GameMap.Direction.SOUTH)) {
+            recursiveTestRooms(x, y + 1, remainingRooms);
         }
-        if(remainingRooms.contains(g.getRoomByCoords(x-1, y))) {
-            recursiveTestRooms(x-1, y, remainingRooms);
+        if(g.canMove(x, y, GameMap.Direction.WEST)) {
+            recursiveTestRooms(x - 1, y, remainingRooms);
         }
-        if(remainingRooms.contains(g.getRoomByCoords(x-1, y))) {
-            recursiveTestRooms(x+1, y, remainingRooms);
+        if(g.canMove(x, y, GameMap.Direction.EAST)) {
+            recursiveTestRooms(x + 1, y, remainingRooms);
         }
     }
 }
