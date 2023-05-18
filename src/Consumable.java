@@ -33,7 +33,9 @@ public class Consumable extends Item {
      */
     public void use(){
         uses--;
-        if(uses<=0){//discard}
+        if(uses<=0){
+            //discard
+        }
     }
 
     /***

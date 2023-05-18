@@ -67,7 +67,9 @@ public class Equipable extends Item {
      */
     public void setDurability(int x){
         durability = x;
-        if(durability<=0){//discard}
+        if(durability<=0){
+            //discard
+        }
     }
 
     /***
