@@ -27,14 +27,14 @@ public class Weapon extends Equipable {
      * @param enemyAvo  the Enemy's AVO stat
      * @return the damage dealt to the enemy
      */
-    public int hit(int playerAcc, int playerStr, int enemyAvo){
+    public int hit(int playerAcc, int playerStr, int enemyAvo, int enemyDef){
 
         int hitChance = playerAcc + this.getMods()[3]; //Player ACC stat + Weapon LUCK stat
         int damage = 0;
 
-        if(hitChance > enemyAvo){                       //hits if hitChance is greater than enemyAvo
-            damage = playerStr + this.getMods()[1];     //Player STR stat + Weapon STR stat
-            this.setDurability(this.getDurability()-1); //Reduce durability
+        if(hitChance > enemyAvo){                                   //hits if hitChance is greater than enemyAvo
+            damage = playerStr + this.getMods()[1] - enemyDef;      //Player STR stat + Weapon STR stat - enemyDef
+            this.setDurability(this.getDurability()-1);             //Reduce durability
         }
 
         return damage;

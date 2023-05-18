@@ -20,6 +20,14 @@ public class Main {
         return new Potion(type[typeNum], useSize, effect, duration);
     }
 
+    public static Food createFood(){
+        Random rand = new Random();
+        String[] type = new String[]{"Apple", "Bread", "Meat", "Ice Cream"};
+        int typeNum = rand.nextInt(4);
+
+        return new Food(type[typeNum], "Some delicious food.", rand.nextInt(3)+1, rand.nextInt(5)+typeNum+1);
+    }
+
     public static Weapon createWeapon(){
         Random rand = new Random();
         String[] types = new String[]{"Sword", "Axe", "Mace", "Hammer"};
