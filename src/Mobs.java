@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 public class Mobs {
     private int hp;
     private int def;
@@ -49,8 +49,12 @@ public class Mobs {
     public void receiveDamage(int damage) {
         damageTaken += damage;
         hp -= damage;
-        if (hp < 0) {
+        if (hp <= 0) {
             hp = 0;
+            death();
         }
+    }
+    public void death() {
+
     }
 }
