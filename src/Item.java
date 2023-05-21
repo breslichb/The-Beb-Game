@@ -9,10 +9,14 @@ import java.io.Serializable;
  */
 public class Item implements Serializable {
 
-    //Fields
-    private String name;    //The name of the Item
-    private String desc;    //The description of the Item
-    private int size;       //The "size" or "weight" of the Item
+    /**The name of the Item*/
+    private String name;
+
+    /**The description of the Item*/
+    private String desc;
+
+    /**The "size" or "weight" of the Item*/
+    private int size;
 
     /***
      * Constructor for an Item object.
