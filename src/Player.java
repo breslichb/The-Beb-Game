@@ -1,72 +1,99 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Player extends Mobs {
-    private Armor head;
-    private Armor body;
-    private Armor arms;
-    private Armor legs;
-    private Weapon[] hands;
-    private List<Item> pack = new ArrayList<>();
-    private List<Quest> quests = new ArrayList<>();
+class Player {
+    private String name;
+    private String playerClass;
+    private int health;
+    private int attack;
+    private int defense;
+    private List<String> inventory;
+    private List<Quest> activeQuests;
+    private Mobs lastKilledEnemy;
 
-    public Player(int hp, int def, int attack, String name, String description, Armor head, Armor body, Armor arms, Armor legs, Weapon[] hands) {
-        super(hp, def, attack, name, description);
-        this.head = head;
-        this.body = body;
-        this.arms = arms;
-        this.legs = legs;
-        this.hands = hands;
+    public void setLastKilledEnemy(Mobs enemy) {
+        this.lastKilledEnemy = enemy;
     }
 
-    public Armor getHead() {
-        return head;
+    public Mobs getLastKilledEnemy() {
+        return lastKilledEnemy;
     }
 
-    public Armor getBody() {
-        return body;
+    public Player(String name, String playerClass, int health, int attack, int defense) {
+        this.name = name;
+        this.playerClass = playerClass;
+        this.health = health;
+        this.attack = attack;
+        this.defense = defense;
+        this.inventory = new ArrayList<>();
+        this.activeQuests = new ArrayList<>();
     }
 
-    public Armor getArms() {
-        return arms;
+    public void addToQuests(Quest quest) {
+        activeQuests.add(quest);
     }
 
-    public Armor getLegs() {
-        return legs;
+    public void completeQuest(Quest quest) {
+        activeQuests.remove(quest);
+        System.out.println("Congratulations! You have completed the quest: " + quest.getName());
     }
 
-    public Weapon[] getHands() {
-        return hands;
+    public boolean hasActiveQuests() {
+        return !activeQuests.isEmpty();
     }
 
-    public List<Item> getPack() {
-        return pack;
-    }
-
-    public List<Quest> getQuests() {
-        return quests;
-    }
-
-    public boolean walk(Direction direction) {
-    }
-
-    public void inventory() {
-    }
-
-    public void quests() {
-    }
-
-    public boolean talk() {
-        System.out.println("Player: Hello!");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("NPC: How can I help you today? ");
-        String response = scanner.nextLine();
-        if (response.equalsIgnoreCase("yes")) {
-            System.out.println("Player: Sure, I'm interested in a quest.");
-
-            return true;
+    public void checkActiveQuests() {
+        if (activeQuests.isEmpty()) {
+            System.out.println("You have no active quests.");
         } else {
-            System.out.println("Player: Not right now, maybe later.");
-            return false;
+            System.out.println("Active quests:");
+            for (Quest quest : activeQuests) {
+                System.out.println(quest.getName() + ": " + quest.getDescription());
+            }
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPlayerClass() {
+        return playerClass;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void takeDamage(int damage) {
+        int remainingHealth = Math.max(health - damage, 0);
+        health = remainingHealth;
+    }
+
+    public void addToInventory(String item) {
+        inventory.add(item);
+    }
+
+    public int getAmuletCount() {
+        int count = 0;
+        for (String item : inventory) {
+            if (item.equals("Amulet of Power")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public Quest[] getActiveQuests() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

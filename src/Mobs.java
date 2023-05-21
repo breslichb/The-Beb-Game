@@ -1,56 +1,35 @@
-import java.util.ArrayList;
-import java.util.List;
 
-public class Mobs {
-    private int hp;
-    private int def;
-    private int attack;
-    private int damageTaken;
+class Mobs {
     private String name;
-    private String description;
+    private int health;
+    private int attack;
+    private int defense;
 
-    public Mobs(int hp, int def, int attack, String name, String description) {
-        this.hp = hp;
-        this.def = def;
-        this.attack = attack;
+    public Mobs(String name, int health, int attack, int defense) {
         this.name = name;
-        this.description = description;
-        this.damageTaken = 0;
-    }
-    public int getHp() {
-        return hp;
-    }
-
-    public int getDef() {
-        return def;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDamageTaken() {
-        return damageTaken;
+        this.health = health;
+        this.attack = attack;
+        this.defense = defense;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getHealth() {
+        return health;
     }
 
-    public void attack(Mobs target) {
-        int damageDealt = Math.max(this.attack - target.getDef(), 0);
-        target.receiveDamage(damageDealt);
+    public int getAttack() {
+        return attack;
     }
 
-    public void receiveDamage(int damage) {
-        damageTaken += damage;
-        hp -= damage;
-        if (hp < 0) {
-            hp = 0;
-        }
+    public int getDefense() {
+        return defense;
+    }
+
+    public void takeDamage(int damage) {
+        int remainingHealth = Math.max(health - damage, 0);
+        health = remainingHealth;
     }
 }

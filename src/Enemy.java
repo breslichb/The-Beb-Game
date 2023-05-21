@@ -1,16 +1,9 @@
-public class Enemy extends Mobs {
-    private Item drop;
-
-    public Enemy(int hp, int def, int attack, String name, String description, Item drop) {
-        super(hp, def, attack, name, description);
-        this.drop = drop;
+class Enemy extends Mobs {
+    public Enemy(String name, int health, int attack, int defense) {
+        super(name, health, attack, defense);
     }
-
-    public Item getDrop() {
-        return drop;
-    }
-
-    public Item death() {
-        return drop;
+    public String dropAmulet() {
+        String amulet = "Amulet of Suseness";
+        return amulet;
     }
 }
