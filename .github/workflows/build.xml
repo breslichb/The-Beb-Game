@@ -18,7 +18,7 @@
     <!-- targets -->
     <target name="compile" description="compile project">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="true">
             <classpath refid = "classpath.test" />
         </javac>
     </target>
