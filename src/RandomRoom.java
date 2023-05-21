@@ -7,15 +7,13 @@ import java.util.Random;
 public class RandomRoom extends Room{
     public RandomRoom(GameMap parent){
         super(parent);
-        /**
         Random rand = new Random();
         int picker = rand.nextInt(3);
         switch(picker) {
             case 0:
-                addItem(Item.makeDrop());
+                addItem(makeDrop());
             case 1:
-                addEnemy(new Enemy());
+                addEnemy(Enemy.createEnemy());
         }
-         */
     }
 }
