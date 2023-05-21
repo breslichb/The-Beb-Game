@@ -12,6 +12,12 @@
 
     <path id = "classpath.test">
         <pathelement location = "${lib.dir}" />
+        <pathelement location = "${lib.dir}/junit-jupiter-5.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-jupiter-api-5.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-jupiter-engine-5.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-jupiter-params-5.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-platform-commons-1.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-platform-engine-1.8.1.jar" />
         <pathelement location = "${src.dir}" />
         <path refid = "classpath.base" />
     </path>
