@@ -1,108 +1,99 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
-public class Player extends Mobs {
-    private Armor head;
-    private Armor body;
-    private Armor arms;
-    private Armor legs;
-    private Weapon[] hands;
-    private List<Item> pack = new ArrayList<>();
-    private List<Quest> quests = new ArrayList<>();
+class Player {
+    private String name;
+    private String playerClass;
+    private int health;
+    private int attack;
+    private int defense;
+    private List<String> inventory;
+    private List<Quest> activeQuests;
+    private Mobs lastKilledEnemy;
 
-    public Player(int hp, int def, int attack, String name, String description, Armor head, Armor body, Armor arms, Armor legs, Weapon[] hands) {
-        super(hp, def, attack, name, description);
-        this.head = head;
-        this.body = body;
-        this.arms = arms;
-        this.legs = legs;
-        this.hands = hands;
+    public void setLastKilledEnemy(Mobs enemy) {
+        this.lastKilledEnemy = enemy;
     }
 
-    // Add a constructor with random attack and defense values for the player, 100hp, attack 10-20 and adds extra hp 10-50
-    public Player(String name, String description, Armor head, Armor body, Armor arms, Armor legs, Weapon[] hands) {
-        super(100, getRandomValue(10, 20), getRandomValue(10, 50), name, description);
-        this.head = head;
-        this.body = body;
-        this.arms = arms;
-        this.legs = legs;
-        this.hands = hands;
+    public Mobs getLastKilledEnemy() {
+        return lastKilledEnemy;
     }
 
-    public Armor getHead() {
-        return head;
+    public Player(String name, String playerClass, int health, int attack, int defense) {
+        this.name = name;
+        this.playerClass = playerClass;
+        this.health = health;
+        this.attack = attack;
+        this.defense = defense;
+        this.inventory = new ArrayList<>();
+        this.activeQuests = new ArrayList<>();
     }
 
-    public Armor getBody() {
-        return body;
+    public void addToQuests(Quest quest) {
+        activeQuests.add(quest);
     }
 
-    public Armor getArms() {
-        return arms;
+    public void completeQuest(Quest quest) {
+        activeQuests.remove(quest);
+        System.out.println("Congratulations! You have completed the quest: " + quest.getName());
     }
 
-    public Armor getLegs() {
-        return legs;
+    public boolean hasActiveQuests() {
+        return !activeQuests.isEmpty();
     }
 
-    public Weapon[] getHands() {
-        return hands;
-    }
-
-    public List<Item> getPack() {
-        return pack;
-    }
-
-    public List<Quest> getQuests() {
-        return quests;
-    }
-
-    public boolean walk(Direction direction) {
-        // Implementation for walking
-        return false;
-    }
-
-    public void inventory() {
-        // Implementation for displaying inventory
-    }
-
-    public void quests() {
-        // Implementation for displaying quests
-    }
-
-    // Helper method to get a random value within a range
-    private static int getRandomValue(int min, int max) {
-        Random random = new Random();
-        return random.nextInt(max - min + 1) + min;
-    }
-
-
-    public boolean talk() {
-        System.out.println("Player: Hello!");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("NPC: How can I help you today? ");
-        String response = scanner.nextLine();
-        if (response.equalsIgnoreCase("yes")) {
-            System.out.println("Player: Sure, I'm interested in a quest.");
-
-            return true;
+    public void checkActiveQuests() {
+        if (activeQuests.isEmpty()) {
+            System.out.println("You have no active quests.");
         } else {
-            System.out.println("Player: Not right now, maybe later.");
-            return false;
-        }
-    }
-    @Override
-    public void receiveDamage(int damage) {
-        super.receiveDamage(damage);
-        if (hp <= 0) {
-            // Player dies
-            death();
+            System.out.println("Active quests:");
+            for (Quest quest : activeQuests) {
+                System.out.println(quest.getName() + ": " + quest.getDescription());
+            }
         }
     }
 
-    public void death() {
+    public String getName() {
+        return name;
+    }
 
+    public String getPlayerClass() {
+        return playerClass;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void takeDamage(int damage) {
+        int remainingHealth = Math.max(health - damage, 0);
+        health = remainingHealth;
+    }
+
+    public void addToInventory(String item) {
+        inventory.add(item);
+    }
+
+    public int getAmuletCount() {
+        int count = 0;
+        for (String item : inventory) {
+            if (item.equals("Amulet of Power")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public Quest[] getActiveQuests() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
