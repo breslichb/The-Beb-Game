@@ -4,14 +4,15 @@
  * to evoke an effect.
  *
  * @author Elijah Johnson
- * @version 1.0
- * @since 5.6.2023
+ * @version 1.1
+ * @since 5.13.2023
  */
 public class Consumable extends Item {
 
-    //fields
-    private int uses;   //the uses available for the Consumable
-    private int effect; //the numerical effect on whatever stat the consumable affects
+    /**The uses available for the Consumable*/
+    private int uses;
+    /**the numerical effect on whatever stat the consumable affects*/
+    private int effect;
 
     /***
      * The constructor for a Consumable object.
@@ -32,6 +33,9 @@ public class Consumable extends Item {
      */
     public void use(){
         uses--;
+        if(uses<=0){
+            //discard
+        }
     }
 
     /***
@@ -41,4 +45,10 @@ public class Consumable extends Item {
     public int getUses(){
         return uses;
     }
+
+    /***
+     * Getter method to retrieve the effect on what stat the Consumable will affect.
+     * @return how many points the stat will be increased/restored
+     */
+    public int getEffect(){return effect;}
 }
