@@ -1,46 +1,32 @@
-public class Quest {
-    private QuestType type;
-    private String description;
-    private int requiredEnemyCount;
-    private int currentEnemyCount;
+import java.util.List;
 
-    public Quest(QuestType type, String description) {
-        this.type = type;
+class Quest {
+    private String name;
+    private String description;
+    private boolean isCompleted;
+    private List<Quest> activeQuests;
+
+    public Quest(String name, String description) {
+        this.name = name;
         this.description = description;
-        this.requiredEnemyCount = 0;
-        this.currentEnemyCount = 0;
+        this.isCompleted = false;
     }
 
-    public QuestType getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public int getRequiredEnemyCount() {
-        return requiredEnemyCount;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    public void setRequiredEnemyCount(int requiredEnemyCount) {
-        this.requiredEnemyCount = requiredEnemyCount;
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
-    public int getCurrentEnemyCount() {
-        return currentEnemyCount;
-    }
-
-    public void incrementEnemyCount() {
-        currentEnemyCount++;
-    }
-
-    public boolean isQuestCompleted() {
-        return currentEnemyCount >= requiredEnemyCount;
-    }
-
-    public enum QuestType {
-        KILL_ENEMIES,
-        COLLECT_ITEMS,
-    }
 }
+
