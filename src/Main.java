@@ -1,12 +1,30 @@
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-  
-  
-  /*=====MAIN METHOD=====*/
+    private JTextArea playArea;
+    private JLabel playAreaLabel;
+    private JLabel playerStatLabel;
+    private JTextArea playerStats;
+    private JButton northButton;
+    private JButton southButton;
+    private JButton eastButton;
+    private JButton westButton;
+    private JLabel moveLabel;
+    private JPanel moveButtonsPanel;
+    private JButton talkButton;
+    private JButton attackButton;
+    private JButton interactButton;
+    private JButton inventoryButton;
+    private JButton questsButton;
+    private JLabel actionLabel;
+    private JLabel menuLabel;
+    private JPanel mainPanel;
+
+    /*=====MAIN METHOD=====*/
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
