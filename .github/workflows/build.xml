@@ -7,10 +7,20 @@
     <property name="jar.dir"     value="${build.dir}/jar"/>
     <property name="doc.dir"     value="../../doc"/>
 
+    <path id = "classpath.base"/>
+
+    <path id = "classpath.test">
+        <pathelement location = "lib/junit-4.10.jar" />
+        <pathelement location = "${src.dir}" />
+        <path refid = "classpath.base" />
+    </path>
+
     <!-- targets -->
     <target name="compile" description="compile project">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
+            <classpath refid = "classpath.test" />
+        </javac>
     </target>
 
     <target name="jar" depends="compile" description="generate the distribution jar">
