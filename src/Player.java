@@ -28,7 +28,7 @@ class Player {
         this.inventory = new ArrayList<>();
         this.activeQuests = new ArrayList<>();
     }
-
+  /*
     public void addToQuests(Quest quest) {
         activeQuests.add(quest);
     }
@@ -51,7 +51,7 @@ class Player {
                 System.out.println(quest.getName() + ": " + quest.getDescription());
             }
         }
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -92,8 +92,39 @@ class Player {
         return count;
     }
 
+
     public Quest[] getActiveQuests() {
         // TODO Auto-generated method stub
         return null;
     }
+
+    public String getKillCount() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void addToQuests(Quest quest) {
+        activeQuests.add(quest);
+    }
+
+    public void completeQuest(Quest quest) {
+        activeQuests.remove(quest);
+        System.out.println("Congratulations! You have completed the quest: " + quest.getName());
+    }
+
+    public boolean hasActiveQuests() {
+        return !activeQuests.isEmpty();
+    }
+
+    public void checkActiveQuests() {
+        if (activeQuests.isEmpty()) {
+            System.out.println("You have no active quests.");
+        } else {
+            System.out.println("Active quests:");
+            for (Quest quest : activeQuests) {
+                System.out.println(quest.getName() + ": " + quest.getDescription());
+            }
+        }
+    }
+
 }
