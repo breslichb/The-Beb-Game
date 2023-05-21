@@ -1,5 +1,7 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +10,7 @@ import java.util.Random;
  * This stores NPCs, enemies, items, etc. that can be encountered in the room.
  * Each room has a unique ID that is incremented as more rooms are added.
  */
-public abstract class Room {
+public abstract class Room implements Serializable {
     /** The map we reside in */
     private GameMap parentMap;
 
@@ -29,7 +31,7 @@ public abstract class Room {
     private ArrayList<NPC> npcs;
 
     /** A flavor-text description of the room. This is independent of any enemies/NPCs/items in the area. */
-    private String desc;
+    protected String desc;
 
     /** The file that contains our descriptions. */
     public static final String descFile = "room_descriptions.txt";
@@ -52,6 +54,14 @@ public abstract class Room {
 
         // Init map linkage
         parentMap = parent;
+    }
+
+    /**
+     * Description getter
+     * @return The room's description.
+     */
+    public String getDesc(){
+        return desc;
     }
 
     /**
@@ -122,11 +132,10 @@ public abstract class Room {
 
     /**
      * Gets a random description from a provided description file using RandomAccessFile
-     * @return
-     * @throws IOException Thrown when the provided description file doesn't exist.
+     * @return the description.
      */
-    public String getRandomDesc() throws IOException {
-        try (RandomAccessFile descs = new RandomAccessFile(descFile, "r")) {
+    public String getRandomDesc(){
+        try (RandomAccessFile descs = new RandomAccessFile(new File(descFile), "r")) {
             // Get a random position
             Random rand = new Random();
             long descLength = descs.length();
@@ -145,6 +154,10 @@ public abstract class Room {
             } else { // If we hit the end, we get a bland description.
                 return "This room is simple and uninteresting.";
             }
+        } catch (IOException e) {
+            // Default in case the IO isn't set up properly
+            System.out.println("IO Error in Description Handling: " + e.toString());
+            return "This room is simple and uninteresting.";
         }
     }
 }
