@@ -1,5 +1,7 @@
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -24,46 +26,82 @@ public class Main {
     private JLabel menuLabel;
     private JPanel mainPanel;
 
+    public Main(){
+        //set the text areas to not be editable
+        playArea.setEditable(false);
+        playerStats.setEditable(false);
+
+        /* ==== Movement Action Listeners ==== */
+        northButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        eastButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        southButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        westButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        /* ==== Player Action Action Listeners ==== */
+        talkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        interactButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        attackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        /* ==== Menu Action Listeners ==== */
+        inventoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        questsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+    }
+
     /*=====MAIN METHOD=====*/
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        Player player = createPlayer(scanner);
-        System.out.println("Welcome, " + player.getName() + "!");
+        //initializing the frame
+        JFrame f = new JFrame("The BEB Game");
+        f.setContentPane(new Main().mainPanel);
+        f.pack();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
 
-        while (true) {
-            System.out.println("What would you like to do?");
-            System.out.println("1. Attack an enemy");
-            System.out.println("2. Talk to an NPC");
-            System.out.println("3. Check Inventory");
-            System.out.println("4. Check Active Quests");
-            System.out.println("5. Quit");
-
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    Mobs enemy = createEnemy();
-                    battle(player, enemy);
-                    break;
-                case 2:
-                    NPC npc = createNPC();
-                    talkToNPC(player, npc);
-                    break;
-                case 3:
-                    System.out.println("Amulet count: " + player.getAmuletCount());
-                    break;
-                case 4:
-                    player.checkActiveQuests();
-                    break;
-                case 5:
-                    System.out.println("Goodbye!");
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        }
     }
       
       /*=====OTHER METHODS=====*/
