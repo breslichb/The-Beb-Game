@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 class NPC {
     private String name;
@@ -16,6 +17,10 @@ class NPC {
 
     public List<Quest> getAvailableQuests() {
         return availableQuests;
+    }
+    public static int generateRandomStat(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
     }
 
     public void giveQuest(Quest quest) {
