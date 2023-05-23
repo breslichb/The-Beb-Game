@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /***
  * Subclass of Equipable. While this class doesn't add much,
  * it has a specific hit() method that will be different from
@@ -35,5 +37,61 @@ public class Armor extends Equipable {
             this.setDurability(this.getDurability()-1);      //reduce durability
         }
         return hit;
+    }
+
+    /**
+     * Creates a randomly-generated armor piece.
+     * @return The created armor piece.
+     */
+    public static Armor createArmor(){
+        Random rand = new Random();
+        int HP=0;
+        if(rand.nextBoolean()){HP = rand.nextInt(10)+1;}
+
+        Equipable.Slot slot = null;
+        int STR=0;
+        int DEF=0;
+        int size=0;
+        int durability=0;
+        String name="";
+        int slotNum = rand.nextInt(4)+1;
+        switch(slotNum){
+            case 1:
+                slot = Equipable.Slot.HEAD;
+                STR = 0;
+                DEF = rand.nextInt(5)+1;
+                size = rand.nextInt(6)+5;
+                durability = rand.nextInt(6)+5;
+                name = "Helmet";
+                break;
+            case 2:
+                slot = Equipable.Slot.CHEST;
+                STR = rand.nextInt(3);
+                DEF = rand.nextInt(10)+1;
+                size = rand.nextInt(11)+10;
+                durability = rand.nextInt(11)+10;
+                name = "Chestplate";
+                break;
+            case 3:
+                slot = Equipable.Slot.LEGS;
+                STR = 0;
+                DEF = rand.nextInt(3)+1;
+                size = rand.nextInt(4)+3;
+                durability = rand.nextInt(4)+3;
+                name = "Boots";
+                break;
+            case 4:
+                slot = Equipable.Slot.ARMS;
+                STR = rand.nextInt(5)+1;
+                DEF = rand.nextInt(5)+1;
+                size = rand.nextInt(4)+3;
+                durability = rand.nextInt(4)+3;
+                name = "Gauntlets";
+                break;
+        }
+
+        int[] mods = new int[]{HP, STR, DEF, rand.nextInt(10)+1};
+
+        return new Armor(name, "An armor piece.", size, slot, mods, durability);
     }
 }
