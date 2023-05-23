@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /***
  * Subclass of Equipable. While this class doesn't add much,
  * it has a specific hit() method that will be different from
@@ -38,5 +40,20 @@ public class Weapon extends Equipable {
         }
 
         return damage;
+    }
+
+    /**
+     * Creates a randomly generated weapon.
+     * @return The created weapon.
+     */
+    public static Weapon createWeapon(){
+        Random rand = new Random();
+        String[] types = new String[]{"Sword", "Axe", "Mace", "Hammer"};
+        int typeNum = rand.nextInt(4);
+        int[] mods = new int[]{0, rand.nextInt(5)+(typeNum+1), 0, (rand.nextInt(10)+1)-typeNum};
+        int size = rand.nextInt(5)+(typeNum+1);
+        int durability = rand.nextInt(10)+(typeNum+1);
+
+        return new Weapon(types[typeNum], "A weapon.", size, mods, durability);
     }
 }
