@@ -58,4 +58,15 @@
 
     <target name="rebuild" depends="clean,build" description="rebuild application"/>
 
+    <target name="run_tests" depends="compile">
+        <junit>
+            <formatter type="plain" usefile="false" />
+
+            <batchtest>
+                <fileset dir="${src.dir}" includes="Test*" />
+            </batchtest>
+        </junit>
+    </target>
+
+
 </project>
