@@ -145,7 +145,7 @@ public class GameMap implements Serializable {
             }
             if(numQuests > 0) {
                 numQuests--;
-                addRoom(coord[1], coord[0], new QuestRoom(this));
+                addRoom(coord[1], coord[0], new NPCRoom(this));
                 coords.remove(coord);
                 continue;
             }
