@@ -1,4 +1,3 @@
-
 class Mobs {
     private String name;
     private int health;
