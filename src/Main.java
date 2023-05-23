@@ -24,6 +24,7 @@ public class Main {
     private JLabel actionLabel;
     private JLabel menuLabel;
     private JPanel mainPanel;
+    private JButton saveButton;
 
     public Main() {
         //set the text areas to not be editable
@@ -102,6 +103,11 @@ public class Main {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
 
+    }
+
+    public class MainStartMenu{
+
+        private JPanel startScreenPanel;
     }
 
     {

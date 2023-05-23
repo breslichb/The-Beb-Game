@@ -3,7 +3,6 @@ import java.util.List;
 
 class Player {
     private String name;
-    private String playerClass;
     private int health;
     private int attack;
     private int defense;
@@ -19,9 +18,8 @@ class Player {
         return lastKilledEnemy;
     }
 
-    public Player(String name, String playerClass, int health, int attack, int defense) {
+    public Player(String name, int health, int attack, int defense) {
         this.name = name;
-        this.playerClass = playerClass;
         this.health = health;
         this.attack = attack;
         this.defense = defense;
@@ -55,10 +53,6 @@ class Player {
 
     public String getName() {
         return name;
-    }
-
-    public String getPlayerClass() {
-        return playerClass;
     }
 
     public int getHealth() {
