@@ -5,6 +5,7 @@ public class DBConnector {
     private static String dburl = "jdbc:mysql://localhost:3306/exampledb";
     private static String username = "root";
     private static String password = "";
+    private static String putSerializedObjectSQL = "INSERT INTO savestates(player, map) VALUES (?, ?)";
     private static String getSerializedObjectSQL = "SELECT player, map FROM savestates WHERE id = ";
 
     private static byte[] serializeObject(Object input) throws SQLException {
@@ -23,7 +24,10 @@ public class DBConnector {
         try {
             ByteArrayInputStream bytein = new ByteArrayInputStream(input);
             ObjectInput in = new ObjectInputStream(bytein);
-            return in.readObject();
+            Object retVal = in.readObject();
+            bytein.close();
+            in.close();
+            return retVal;
         } catch (Exception e) {
             throw new SQLException("Deserialization Error: " + e.toString());
         }
@@ -34,7 +38,25 @@ public class DBConnector {
         ResultSet results = sqlStatement.executeQuery(getSerializedObjectSQL + id);
         Player player = (Player) deserializeObject(results.getBytes("player"));
         GameMap map = (GameMap) deserializeObject(results.getBytes("map"));
+        sqlStatement.close();
         return new Object[] {player, map};
+    }
+
+    public static int putSaveState(Player p, GameMap map, Connection con) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(putSerializedObjectSQL);
+        ps.setBytes(1, serializeObject(p));
+        ps.setBytes(2, serializeObject(map));
+        boolean success = false;
+        if(ps.executeUpdate() == 1) {
+            con.commit();
+            success = true;
+        }
+        ResultSet rs = ps.getGeneratedKeys();
+        int serialized_id = -1;
+        if (rs.next()) {
+            serialized_id = rs.getInt(1);
+        }
+        return serialized_id;
     }
 
     public static Connection connect(){
