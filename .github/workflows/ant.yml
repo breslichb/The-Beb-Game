@@ -36,4 +36,4 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Run Tests
-      run: ant -noinput -buildfile .github/workflows/build.xml -target "run_tests"
+      run: ant -noinput -buildfile .github/workflows/build.xml run_tests
