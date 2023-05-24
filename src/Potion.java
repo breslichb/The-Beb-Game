@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /***
  * Subclass of Consumable. Potions will temporarily
  * increase a stat or restore HP. Within the driver class,
@@ -30,4 +32,23 @@ public class Potion extends Consumable{
      */
     public int getDuration(){return duration;}
 
+    /**
+     * Creates a randomly generated potion.
+     * @return The created potion.
+     */
+    public static Potion createPotion(){
+        Random rand = new Random();
+        String[] type = new String[]{"HP", "STR", "DEF", "LUCK"};
+        int typeNum = rand.nextInt(4);
+        int useSize = rand.nextInt(3)+1;
+        int effect = rand.nextInt(9)+2;
+        int duration;
+        if(typeNum == 0){
+            duration=0;
+        }else{
+            duration = rand.nextInt(5)+1;
+        }
+
+        return new Potion(type[typeNum], useSize, effect, duration);
+    }
 }

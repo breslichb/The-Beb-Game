@@ -10,21 +10,29 @@ import java.util.ArrayList;
 
 /**
  * This class is a JUnit test class for map generation. It makes sure that the map generates sensibly and that
- * nothing got lost along the way.
+ * nothing is segmented off/inaccessible.
  */
 public class TestMapGen {
+    /** Test map */
     static GameMap g;
 
+    /**
+     * Initialize our test map.
+     */
     @BeforeAll
     static void init() {
         g = new GameMap(10, 10, 2, 2, 5, 5);
     }
 
+    /**
+     * Test our map connections.
+     */
     @Test
     @DisplayName("Test Map Connections")
     void testMapConnections() {
         ArrayList<Room> rmsToTest = new ArrayList<Room>(g.getRoomsList());
         recursiveTestRooms(5, 5, rmsToTest);
+        System.out.println("Generated test room:");
         System.out.println(g);
         assertEquals(0, rmsToTest.size());
     }

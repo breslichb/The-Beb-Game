@@ -1,14 +1,33 @@
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-class Player {
-    private String name;
-    private int health;
-    private int attack;
-    private int defense;
+class Player extends Mobs {
+
     private List<String> inventory;
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
+
+    private Player(String name, int health, int attack, int defense) {
+        super(name, health, attack, defense);
+
+        this.inventory = new ArrayList<>();
+        this.activeQuests = new ArrayList<>();
+    }
+
+    public static Player createPlayer() {
+        String name = "Player"; // Default name
+        // Generate random player stats
+        int health = generateRandomStat(100, 150);
+        int attack = generateRandomStat(10, 20);
+        int defense = generateRandomStat(10, 20);
+
+        return new Player(name, health, attack, defense);
+    }
+    private static int generateRandomStat(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+    }
 
     public void setLastKilledEnemy(Mobs enemy) {
         this.lastKilledEnemy = enemy;
@@ -16,60 +35,6 @@ class Player {
 
     public Mobs getLastKilledEnemy() {
         return lastKilledEnemy;
-    }
-
-    public Player(String name, int health, int attack, int defense) {
-        this.name = name;
-        this.health = health;
-        this.attack = attack;
-        this.defense = defense;
-        this.inventory = new ArrayList<>();
-        this.activeQuests = new ArrayList<>();
-    }
-  /*
-    public void addToQuests(Quest quest) {
-        activeQuests.add(quest);
-    }
-
-    public void completeQuest(Quest quest) {
-        activeQuests.remove(quest);
-        System.out.println("Congratulations! You have completed the quest: " + quest.getName());
-    }
-
-    public boolean hasActiveQuests() {
-        return !activeQuests.isEmpty();
-    }
-
-    public void checkActiveQuests() {
-        if (activeQuests.isEmpty()) {
-            System.out.println("You have no active quests.");
-        } else {
-            System.out.println("Active quests:");
-            for (Quest quest : activeQuests) {
-                System.out.println(quest.getName() + ": " + quest.getDescription());
-            }
-        }
-    }*/
-
-    public String getName() {
-        return name;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    public void takeDamage(int damage) {
-        int remainingHealth = Math.max(health - damage, 0);
-        health = remainingHealth;
     }
 
     public void addToInventory(String item) {
@@ -86,14 +51,11 @@ class Player {
         return count;
     }
 
-
     public Quest[] getActiveQuests() {
-        // TODO Auto-generated method stub
-        return null;
+        return activeQuests.toArray(new Quest[0]);
     }
 
     public String getKillCount() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -120,5 +82,6 @@ class Player {
             }
         }
     }
+
 
 }
