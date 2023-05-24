@@ -19,7 +19,9 @@ public class MainStartMenu {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                MainNewGame newGame = new MainNewGame();
+                newGame.createFrame();
+                s.dispose();
             }
         });
         continueButton.addActionListener(new ActionListener() {
@@ -41,7 +43,7 @@ public class MainStartMenu {
         s = new JFrame("The BEB Game");
         s.setContentPane(new MainStartMenu(f).startMenuPanel);
         s.pack();
-        s.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         s.setVisible(true);
     }
 
