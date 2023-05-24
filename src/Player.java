@@ -3,19 +3,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Player extends Mobs {
+
     private List<String> inventory;
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
 
     private Player(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
+
         this.inventory = new ArrayList<>();
         this.activeQuests = new ArrayList<>();
     }
 
     public static Player createPlayer() {
         String name = "Player"; // Default name
-
         // Generate random player stats
         int health = generateRandomStat(100, 150);
         int attack = generateRandomStat(10, 20);

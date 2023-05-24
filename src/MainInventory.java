@@ -10,7 +10,7 @@ public class MainInventory {
 
     }
 
-    public void createForm() {
+    public void createFrame() {
         JFrame i = new JFrame("Inventory");
         i.setContentPane(new MainInventory().inventoryPanel);
         i.pack();
