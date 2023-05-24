@@ -7,12 +7,13 @@ class Player extends Mobs {
     private List<String> inventory;
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
+    private Armor equippedArmor;
 
     private Player(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
-
         this.inventory = new ArrayList<>();
         this.activeQuests = new ArrayList<>();
+        this.equippedArmor = null;
     }
 
     public static Player createPlayer() {
@@ -83,5 +84,27 @@ class Player extends Mobs {
         }
     }
 
+    //armor stuff
+    public void equipArmor(Armor armor) {
+        if (equippedArmor != null) {
+            unequipArmor();
+        }
+        equippedArmor = armor;
+        System.out.println("Equipped " + armor.getName() + " armor.");
+    }
 
+    public void unequipArmor() {
+        if (equippedArmor != null) {
+            System.out.println("Unequipped " + equippedArmor.getName() + " armor.");
+            equippedArmor = null;
+        }
+    }
+
+    public Armor getEquippedArmor() {
+        return equippedArmor;
+    }
+
+    public boolean hasEquippedArmor() {
+        return equippedArmor != null;
+    }
 }
