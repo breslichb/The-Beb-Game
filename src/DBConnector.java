@@ -2,10 +2,10 @@ import java.io.*;
 import java.sql.*;
 
 public class DBConnector {
-    private static String dburl = "jdbc:mysql://localhost:3306/exampledb";
+    private static String dburl = "jdbc:mysql://localhost:3306/bebdb";
     private static String username = "root";
     private static String password = "";
-    private static String putSerializedObjectSQL = "INSERT INTO savestates(player, map) VALUES (?, ?)";
+    private static String putSerializedObjectSQL = "INSERT INTO savestates(name, player, map) VALUES (?, ?, ?)";
     private static String getSerializedObjectSQL = "SELECT player, map FROM savestates WHERE id = ";
 
     private static byte[] serializeObject(Object input) throws SQLException {
@@ -42,10 +42,11 @@ public class DBConnector {
         return new Object[] {player, map};
     }
 
-    public static int putSaveState(Player p, GameMap map, Connection con) throws SQLException {
+    public static int putSaveState(String name, Player p, GameMap map, Connection con) throws SQLException {
         PreparedStatement ps = con.prepareStatement(putSerializedObjectSQL);
-        ps.setBytes(1, serializeObject(p));
-        ps.setBytes(2, serializeObject(map));
+        ps.setString(1, name);
+        ps.setBytes(2, serializeObject(p));
+        ps.setBytes(3, serializeObject(map));
         boolean success = false;
         if(ps.executeUpdate() == 1) {
             con.commit();
