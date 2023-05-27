@@ -63,6 +63,7 @@
     <target name="run_tests" depends="compile">
         <junit>
             <classpath path="${lib.dir}">
+                <pathelement location="${lib.dir}"/>
                 <path refid="classpath.test" />
             </classpath>
             <classpath location="../../lib/junit-jupiter-5.8.1.jar"/>
