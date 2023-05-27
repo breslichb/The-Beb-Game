@@ -33,4 +33,9 @@ class Mobs implements Serializable {
         int remainingHealth = Math.max(health - damage, 0);
         health = remainingHealth;
     }
+
+    //death method for player class
+    public boolean isDead() {
+        return getHealth() <= 0;
+    }
 }
