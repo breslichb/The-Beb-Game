@@ -12,6 +12,7 @@ class Player extends Mobs implements Serializable {
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
     private Armor equippedArmor;
+    private int maxHealth;
 
     private Player(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
@@ -110,5 +111,43 @@ class Player extends Mobs implements Serializable {
 
     public boolean hasEquippedArmor() {
         return equippedArmor != null;
+    }
+
+    //attack
+    public void attack(Mobs enemy) {
+        System.out.println(getName() + " attacks " + enemy.getName() + "!");
+        int damageDealt = calculateDamage(enemy);
+        enemy.takeDamage(damageDealt);
+        if (enemy.isDead()) {
+            setLastKilledEnemy(enemy);
+            System.out.println(enemy.getName() + " has been defeated.");
+        }
+    }
+        private int calculateDamage(Mobs enemy) {
+            // Calculate damage taking into account player's attack and enemy's defense
+            int attackDamage = getAttack() - enemy.getDefense();
+            return Math.max(0, attackDamage);
+        }
+
+        //talk
+        public void talk(NPC npc) {
+            System.out.println(getName() + " talking with " + npc.getName() + ".");
+            npc.dialogue();
+        }
+
+    // the health ratio
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    @Override
+    public int getHealth() {
+        return super.getHealth();
+    }
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        System.out.println(getName() + " takes " + damage + " damage.");
+        System.out.println("Current health: " + getHealth() + "/" + getMaxHealth());
     }
 }
