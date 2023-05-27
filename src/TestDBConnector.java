@@ -30,7 +30,7 @@ public class TestDBConnector {
     @BeforeAll
     static void init() {
         g = new GameMap(10, 10, 2, 2, 5, 5);
-        p = Player.createPlayer();
+        p = Player.createPlayer("DEFAULT");
         con = DBConnector.connect();
     }
 

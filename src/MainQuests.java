@@ -1,3 +1,6 @@
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,10 +35,10 @@ public class MainQuests {
      */
     private void $$$setupUI$$$() {
         questsPanel = new JPanel();
-        questsPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
+        questsPanel.setLayout(new GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
         testLabel = new JLabel();
         testLabel.setText("Success");
-        questsPanel.add(testLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        questsPanel.add(testLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -44,4 +47,5 @@ public class MainQuests {
     public JComponent $$$getRootComponent$$$() {
         return questsPanel;
     }
+
 }

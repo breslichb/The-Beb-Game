@@ -16,8 +16,7 @@ class Player extends Mobs {
         this.equippedArmor = null;
     }
 
-    public static Player createPlayer() {
-        String name = "Player"; // Default name
+    public static Player createPlayer(String name) {
         // Generate random player stats
         int health = generateRandomStat(100, 150);
         int attack = generateRandomStat(10, 20);

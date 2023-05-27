@@ -1,3 +1,6 @@
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -34,10 +37,10 @@ public class MainInventory {
      */
     private void $$$setupUI$$$() {
         inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
+        inventoryPanel.setLayout(new GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
         testlabel = new JLabel();
         testlabel.setText("Success");
-        inventoryPanel.add(testlabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.add(testlabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -46,4 +49,5 @@ public class MainInventory {
     public JComponent $$$getRootComponent$$$() {
         return inventoryPanel;
     }
+
 }
