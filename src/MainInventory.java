@@ -3,19 +3,33 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+
 
 public class MainInventory {
 
     private JPanel inventoryPanel;
-    private JLabel testlabel;
+    private JScrollPane inventoryScroll;
+    private JTextArea inventoryDisplay;
+    private JLabel inventoryLabel;
 
-    MainInventory() {
+    MainInventory(Player p) {
+        inventoryDisplay.setEditable(false);
+        inventoryLabel.setText(p.getName() + "'s Inventory");
 
+        p.addToInventory("Sword");
+        p.addToInventory("Helmet");
+
+        List<String> inventory = p.getInventory();
+
+        for (String i : inventory) {
+            inventoryDisplay.setText(inventoryDisplay.getText() + i + "\n");
+        }
     }
 
     public void createFrame() {
         JFrame i = new JFrame("Inventory");
-        i.setContentPane(new MainInventory().inventoryPanel);
+        i.setContentPane(inventoryPanel);
         i.pack();
         i.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         i.setVisible(true);
@@ -37,10 +51,14 @@ public class MainInventory {
      */
     private void $$$setupUI$$$() {
         inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
-        testlabel = new JLabel();
-        testlabel.setText("Success");
-        inventoryPanel.add(testlabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.setLayout(new GridLayoutManager(2, 1, new Insets(10, 10, 10, 10), -1, -1));
+        inventoryScroll = new JScrollPane();
+        inventoryPanel.add(inventoryScroll, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 300), null, 0, false));
+        inventoryDisplay = new JTextArea();
+        inventoryScroll.setViewportView(inventoryDisplay);
+        inventoryLabel = new JLabel();
+        inventoryLabel.setText("Player's Inventory");
+        inventoryPanel.add(inventoryLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

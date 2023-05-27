@@ -41,6 +41,8 @@ class Player extends Mobs {
         inventory.add(item);
     }
 
+    public List<String> getInventory(){return inventory;}
+
     public int getAmuletCount() {
         int count = 0;
         for (String item : inventory) {

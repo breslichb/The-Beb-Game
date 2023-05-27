@@ -29,10 +29,11 @@ public class MainStartMenu {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //connect to database and grab name of saved player
+                //connect to database and get save player and map
                 String name = "DEFAULT";
                 Player player = Player.createPlayer(name);
-                Main main = new Main(player);
+                GameMap map = new GameMap(5, 5, 1, 1, 0, 0);
+                Main main = new Main(player, map);
                 main.startGame();
                 s.dispose();
             }

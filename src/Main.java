@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -29,39 +30,50 @@ public class Main {
     private JLabel menuLabel;
     private JPanel mainPanel;
     private JButton saveButton;
+    private JScrollPane playAreaScroll;
     private static Player player;
     private static GameMap map;
 
-    public Main(Player p) {
+    public Main(Player p, GameMap m) {
+        //set static fields
+        player = p;
+        map = m;
+
+
         //set the text areas to not be editable
         playArea.setEditable(false);
         playerStats.setEditable(false);
 
-        playerStats.setText(p.getName());
+        //set text areas to have display text
+        playerStats.setText(player.getName()
+                + "\nHealth  : " + player.getHealth() + " / " + player.getHealth()
+                + "\nStrength: " + player.getAttack()
+                + "\nDefense : " + player.getDefense());
+        playArea.setText("Current Location: *Ask Ben to add a way to retrieve current coords*\n");
 
         /* ==== Movement Action Listeners ==== */
         northButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Moved North.\n");
             }
         });
         eastButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Moved East.\n");
             }
         });
         southButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Moved South.\n");
             }
         });
         westButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Moved West.\n");
             }
         });
 
@@ -69,19 +81,27 @@ public class Main {
         talkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add talk() function*.\n");
             }
         });
         interactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add interact() function (also ask what this would do because I forgot)*.\n");
+                updatePlayerStats();
             }
         });
         attackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ArrayList<Enemy> enemies = map.getRoomByCoords(0, 0).getEnemies();  //current coords thing again
+                player.takeDamage(10);
+                updatePlayerStats();
+                if (enemies.isEmpty()) {
+                    playArea.setText(playArea.getText() + "There is nothing to attack!\n");
+                } else {
+                    playArea.setText(playArea.getText() + "Oh no an enemy ahhhhhh!\n");     //ask bayasaa to implement an attack() method
+                }
             }
         });
 
@@ -89,14 +109,14 @@ public class Main {
         inventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainInventory inventory = new MainInventory();
+                MainInventory inventory = new MainInventory(player);
                 inventory.createFrame();
             }
         });
         questsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainQuests quests = new MainQuests();
+                MainQuests quests = new MainQuests(player);
                 quests.createFrame();
             }
         });
@@ -109,6 +129,13 @@ public class Main {
         f.pack();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
+    }
+
+    public void updatePlayerStats() {
+        playerStats.setText(player.getName()
+                + "\nHealth  : " + player.getHealth() + " / " + player.getHealth()
+                + "\nStrength: " + player.getAttack()
+                + "\nDefense : " + player.getDefense());
     }
 
 
@@ -181,15 +208,17 @@ public class Main {
         mainPanel.add(menuLabel, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         playerStats = new JTextArea();
         playerStats.setText("");
-        mainPanel.add(playerStats, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 150), null, 0, false));
+        mainPanel.add(playerStats, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 150), null, 0, false));
         playerStatLabel = new JLabel();
         playerStatLabel.setText("Player");
         mainPanel.add(playerStatLabel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        playArea = new JTextArea();
-        mainPanel.add(playArea, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(295, 150), null, 0, false));
         saveButton = new JButton();
         saveButton.setText("Save");
         mainPanel.add(saveButton, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 10), null, 0, false));
+        playAreaScroll = new JScrollPane();
+        mainPanel.add(playAreaScroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        playArea = new JTextArea();
+        playAreaScroll.setViewportView(playArea);
     }
 
     /**
