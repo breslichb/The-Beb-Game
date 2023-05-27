@@ -18,7 +18,8 @@
         <pathelement location = "${lib.dir}/junit-jupiter-params-5.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-commons-1.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-engine-1.8.1.jar" />
-        <pathelement location = "$apiguardian-api-1.1.2.jar" />
+        <pathelement location = "${lib.dir}/apiguardian-api-1.1.2.jar" />
+        <pathelement location = "${lib.dir}/forms_rt.jar" />
         <pathelement location = "${src.dir}" />
         <path refid = "classpath.base" />
     </path>
@@ -60,6 +61,10 @@
 
     <target name="run_tests" depends="compile">
         <junit>
+            <classpath path="${lib.dir}">
+                <path refid="classpath.test" />
+            </classpath>
+            <classpath location="../../lib/junit-jupiter-5.8.1.jar"/>
             <formatter type="plain" usefile="false" />
 
             <batchtest>

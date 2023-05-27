@@ -2,11 +2,12 @@ import java.io.*;
 import java.sql.*;
 
 public class DBConnector {
-    private static String dburl = "jdbc:mysql://localhost:3306/exampledb";
+    private static String dburl = "jdbc:mysql://localhost:3306/bebdb";
     private static String username = "root";
     private static String password = "";
-    private static String putSerializedObjectSQL = "INSERT INTO savestates(player, map) VALUES (?, ?)";
-    private static String getSerializedObjectSQL = "SELECT player, map FROM savestates WHERE id = ";
+    private static String putSerializedObjectSQL = "INSERT INTO savestates(name, player, map) VALUES (?, ?, ?)";
+    private static String getSerializedObjectSQLbyID = "SELECT player, map FROM savestates WHERE id = ";
+    private static String getSerializedObjectSQLbyName = "SELECT player, map FROM savestates WHERE name LIKE *?*";
 
     private static byte[] serializeObject(Object input) throws SQLException {
         try {
@@ -35,17 +36,28 @@ public class DBConnector {
 
     public static Object[] getSaveStateByID(int id, Connection con) throws SQLException {
         Statement sqlStatement = con.createStatement();
-        ResultSet results = sqlStatement.executeQuery(getSerializedObjectSQL + id);
+        ResultSet results = sqlStatement.executeQuery(getSerializedObjectSQLbyID + id);
         Player player = (Player) deserializeObject(results.getBytes("player"));
         GameMap map = (GameMap) deserializeObject(results.getBytes("map"));
         sqlStatement.close();
         return new Object[] {player, map};
     }
 
-    public static int putSaveState(Player p, GameMap map, Connection con) throws SQLException {
+    public static Object[] getSaveStateByName(String name, Connection con) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(getSerializedObjectSQLbyName);
+        ps.setString(1, name);
+        ResultSet results = ps.executeQuery();
+        Player player = (Player) deserializeObject(results.getBytes("player"));
+        GameMap map = (GameMap) deserializeObject(results.getBytes("map"));
+        ps.close();
+        return new Object[] {player, map};
+    }
+
+    public static int putSaveState(String name, Player p, GameMap map, Connection con) throws SQLException {
         PreparedStatement ps = con.prepareStatement(putSerializedObjectSQL);
-        ps.setBytes(1, serializeObject(p));
-        ps.setBytes(2, serializeObject(map));
+        ps.setString(1, name);
+        ps.setBytes(2, serializeObject(p));
+        ps.setBytes(3, serializeObject(map));
         boolean success = false;
         if(ps.executeUpdate() == 1) {
             con.commit();
@@ -56,6 +68,7 @@ public class DBConnector {
         if (rs.next()) {
             serialized_id = rs.getInt(1);
         }
+        ps.close();
         return serialized_id;
     }
 
