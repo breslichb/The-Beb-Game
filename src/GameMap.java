@@ -47,6 +47,7 @@ public class GameMap implements Serializable {
 
         // Make our starting room then run room generation
         addRoom(startX, startY, new StartingRoom(this));
+        playerLocation = new int[]{startX, startY};
         generateRooms(startX, startY, numQuests, numEnemies);
     }
 
