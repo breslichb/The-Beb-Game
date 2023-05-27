@@ -47,6 +47,7 @@ public class GameMap implements Serializable {
 
         // Make our starting room then run room generation
         addRoom(startX, startY, new StartingRoom(this));
+        playerLocation = new int[]{startX, startY};
         generateRooms(startX, startY, numQuests, numEnemies);
     }
 
@@ -75,10 +76,28 @@ public class GameMap implements Serializable {
         return str.toString();
     }
 
+    /**
+     * Return's the player's location.
+     * @return The X/Y coords of the player.
+     */
+    public int[] getPlayerLocation(){
+        return playerLocation;
+    }
+
+    /**
+     * Gets the room list.
+     * @return The room list.
+     */
     public ArrayList<Room> getRoomsList() {
         return roomsList;
     }
 
+    /**
+     * Gets a room by x/y coords.
+     * @param x The x-coord of the target
+     * @param y The y-coord of the target
+     * @return The room at the x/y pair.
+     */
     public Room getRoomByCoords(int x, int y) {
         try {
             return rooms[y][x];
