@@ -66,8 +66,6 @@
                 <pathelement location="${lib.dir}"/>
                 <path refid="classpath.test" />
             </classpath>
-            <classpath location="../../lib/junit-jupiter-5.8.1.jar"/>
-            <classpath location="../../lib/ant-junit-1.6.4.jar"/>
             <formatter type="plain" usefile="false" />
 
             <batchtest>
