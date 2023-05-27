@@ -28,4 +28,8 @@ class NPC implements Serializable {
         availableQuests.add(quest);
         System.out.println("NPC " + name + " gives you a new quest: " + quest.getName());
     }
+    //dialogue method for player class
+    public void dialogue() {
+        System.out.println(getName() + " talking");
+    }
 }
