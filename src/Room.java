@@ -17,9 +17,8 @@ public abstract class Room implements Serializable {
     /** Our room ID */
     private Integer roomID;
 
-    /** The current number of rooms in existence. This is TRANSIENT and is not stored during DB save,
-     * instead being calculated after DB load and game init. */
-    private static transient Integer numRooms = 0;
+    /** The current number of rooms in existence. */
+    private static Integer numRooms = 0;
 
     /** An arraylist of the items currently present in the room. */
     private ArrayList<Item> items;

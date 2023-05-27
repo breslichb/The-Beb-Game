@@ -12,6 +12,7 @@
 
     <path id = "classpath.test">
         <pathelement location = "${lib.dir}" />
+        <pathelement location = "${lib.dir}/ant-junit-1.6.4.jar" />
         <pathelement location = "${lib.dir}/junit-jupiter-5.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-jupiter-api-5.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-jupiter-engine-5.8.1.jar" />
@@ -61,10 +62,10 @@
 
     <target name="run_tests" depends="compile">
         <junit>
-            <classpath path="${lib.dir}">
+            <classpath>
+                <pathelement location="${lib.dir}"/>
                 <path refid="classpath.test" />
             </classpath>
-            <classpath location="../../lib/junit-jupiter-5.8.1.jar"/>
             <formatter type="plain" usefile="false" />
 
             <batchtest>

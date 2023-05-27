@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Random;
 
-class Enemy extends Mobs {
+class Enemy extends Mobs implements Serializable {
     public Enemy(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
     }

@@ -1,4 +1,6 @@
-class Mobs {
+import java.io.Serializable;
+
+class Mobs implements Serializable {
     private String name;
     private int health;
     private int attack;
