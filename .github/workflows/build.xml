@@ -62,7 +62,7 @@
 
     <target name="run_tests" depends="compile">
         <junit>
-            <classpath path="${lib.dir}">
+            <classpath>
                 <pathelement location="${lib.dir}"/>
                 <path refid="classpath.test" />
             </classpath>
