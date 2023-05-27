@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-class NPC {
+class NPC implements Serializable {
     private String name;
     private List<Quest> availableQuests;
 

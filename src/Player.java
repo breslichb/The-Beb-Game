@@ -1,8 +1,12 @@
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-class Player extends Mobs {
+class Player extends Mobs implements Serializable {
 
     private List<String> inventory;
     private List<Quest> activeQuests;

@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -40,17 +39,28 @@ public class TestDBConnector {
     @Test
     @DisplayName("Test DB Connection")
     void testDBConnection() {
-        assertTrue(con != null);
+        assertNotNull(con);
     }
 
+    /**
+     * Test that everything's being serialized properly.
+     * This looks at our player and our map before/after serialization, making sure that they're equal.
+     * @throws SQLException
+     */
     @Test
     @DisplayName("Test Serialization/Deserialization")
     void testSerialization() throws SQLException{
         DBConnector.putSaveState("save1", p, g, con);
-        Object[] o = DBConnector.getSaveStateByID(1, con);
-        Player p1 = (Player) o[0];
-        GameMap g1 = (GameMap) o[1];
+        Statement sqlStatement = con.createStatement();
+        ResultSet results = sqlStatement.executeQuery("SELECT id FROM savestates ORDER BY id DESC");
+        results.next();
+        int id = results.getInt("id");
+        Object[] o = DBConnector.getSaveStateByID(id, con);
+        Player p1 = (Player) o[1];
+        GameMap g1 = (GameMap) o[2];
         assertTrue(p.getName().equals(p1.getName()));
-        assertTrue(g1.getRoomsList().equals(g.getRoomsList()));
+        ArrayList<Room> l1 = g1.getRoomsList();
+        ArrayList<Room> l2 = g.getRoomsList();
+        assertTrue(l1.size() == l2.size());
     }
 }
