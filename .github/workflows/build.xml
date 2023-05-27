@@ -61,6 +61,7 @@
 
     <target name="run_tests" depends="compile">
         <junit>
+            <classpath refid = "classpath.test" />
             <formatter type="plain" usefile="false" />
 
             <batchtest>
