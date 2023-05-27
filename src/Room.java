@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,7 +36,10 @@ public abstract class Room implements Serializable {
     protected String desc;
 
     /** The file that contains our descriptions. */
-    public static final String descFile = "room_descriptions.txt";
+    public static final String descFileName = "room_descriptions.txt";
+
+    /** A list containing all our descs for easy sampling. */
+    public static List<String> descFile;
 
     /**
      * Makes a basic room object. This is called by the game map.
@@ -134,25 +140,11 @@ public abstract class Room implements Serializable {
      * @return the description.
      */
     public String getRandomDesc(){
-        try (RandomAccessFile descs = new RandomAccessFile(new File(descFile), "r")) {
+        try {
+            descFile = Files.readAllLines(Paths.get(descFileName));
             // Get a random position
             Random rand = new Random();
-            long descLength = descs.length();
-            long pos = rand.nextLong(descLength);
-            descs.seek(pos);
-
-            // If pos is 0, we don't need to skip to the next line. Otherwise, we do so to get the beginning of the next desc.
-            if(pos != 0) {
-                descs.readLine();
-            }
-
-            // Read in our desc
-            String retDesc = descs.readLine();
-            if(retDesc.length() > 0) {
-                return descs.readLine();
-            } else { // If we hit the end, we get a bland description.
-                return "This room is simple and uninteresting.";
-            }
+            return descFile.get(rand.nextInt(descFile.size()));
         } catch (IOException e) {
             // Default in case the IO isn't set up properly
             System.out.println("IO Error in Description Handling: " + e.toString());
