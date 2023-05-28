@@ -5,31 +5,28 @@ import java.util.Random;
 
 class NPC implements Serializable {
     private String name;
-    private List<Quest> availableQuests;
+    private Quest availableQuest;
 
-    public NPC(String name) {
+    public NPC(String name, Quest quest) {
         this.name = name;
-        this.availableQuests = new ArrayList<>();
+        this.availableQuest = quest;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Quest> getAvailableQuests() {
-        return availableQuests;
+    public Quest getAvailableQuest() {
+        return availableQuest;
     }
     public static int generateRandomStat(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
     }
 
-    public void giveQuest(Quest quest) {
-        availableQuests.add(quest);
-        System.out.println("NPC " + name + " gives you a new quest: " + quest.getName());
+    public void giveQuest(Player player) {
+        player.addToQuests(getAvailableQuest());
+        availableQuest = null;
     }
-    //dialogue method for player class
-    public void dialogue() {
-        System.out.println(getName() + " talking");
-    }
+
 }

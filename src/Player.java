@@ -107,8 +107,7 @@ class Player extends Mobs implements Serializable {
 
     //talk
     public void talk(NPC npc) {
-        System.out.println(getName() + " talking with " + npc.getName() + ".");
-        npc.dialogue();
+        npc.giveQuest(this);
     }
 
     // the health ratio
