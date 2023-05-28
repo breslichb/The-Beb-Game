@@ -32,7 +32,7 @@ public class MainStartMenu {
                 //connect to database and get save player and map
                 String name = "DEFAULT";
                 Player player = Player.createPlayer(name);
-                GameMap map = new GameMap(5, 5, 1, 1, 0, 0);
+                GameMap map = new GameMap(5, 5, 1, 1, 0, 0, player);
                 Main main = new Main(player, map);
                 main.startGame();
                 s.dispose();
