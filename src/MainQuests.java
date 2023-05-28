@@ -1,16 +1,33 @@
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class MainQuests {
     private JPanel questsPanel;
-    private JLabel testLabel;
+    private JLabel questLabel;
+    private JTextArea questDisplay;
+    private JScrollPane questScroll;
 
-    MainQuests() {
+    MainQuests(Player p) {
+        questDisplay.setEditable(false);
+        questLabel.setText(p.getName() + "'s Quests");
+
+        p.addToQuests(new Quest("Kill Monsters!", "Kill 10 Spiders"));
+        p.addToQuests(new Quest("Gather Items!", "Collect 3 Swords"));
+
+        Quest[] quests = p.getActiveQuests();
+
+        for (Quest q : quests) {
+            questDisplay.setText(questDisplay.getText() + " - " + q.getName() + "\n" + q.getDescription() + "\n");
+        }
     }
 
     public void createFrame() {
         JFrame q = new JFrame("Quests");
-        q.setContentPane(new MainQuests().questsPanel);
+        q.setContentPane(questsPanel);
         q.pack();
         q.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         q.setVisible(true);
@@ -32,10 +49,14 @@ public class MainQuests {
      */
     private void $$$setupUI$$$() {
         questsPanel = new JPanel();
-        questsPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(100, 100, 100, 100), -1, -1));
-        testLabel = new JLabel();
-        testLabel.setText("Success");
-        questsPanel.add(testLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        questsPanel.setLayout(new GridLayoutManager(2, 1, new Insets(10, 10, 10, 10), -1, -1));
+        questLabel = new JLabel();
+        questLabel.setText("Player's Quests");
+        questsPanel.add(questLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        questScroll = new JScrollPane();
+        questsPanel.add(questScroll, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 300), null, 0, false));
+        questDisplay = new JTextArea();
+        questScroll.setViewportView(questDisplay);
     }
 
     /**
@@ -44,4 +65,5 @@ public class MainQuests {
     public JComponent $$$getRootComponent$$$() {
         return questsPanel;
     }
+
 }

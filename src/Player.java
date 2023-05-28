@@ -21,8 +21,7 @@ class Player extends Mobs implements Serializable {
         this.equippedArmor = null;
     }
 
-    public static Player createPlayer() {
-        String name = "Player"; // Default name
+    public static Player createPlayer(String name) {
         // Generate random player stats
         int health = generateRandomStat(100, 150);
         int attack = generateRandomStat(10, 20);
@@ -46,6 +45,8 @@ class Player extends Mobs implements Serializable {
     public void addToInventory(String item) {
         inventory.add(item);
     }
+
+    public List<String> getInventory(){return inventory;}
 
     public int getAmuletCount() {
         int count = 0;
