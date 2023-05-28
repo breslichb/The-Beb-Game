@@ -16,6 +16,7 @@ class Player extends Mobs implements Serializable {
 
     private Player(String name, int health, int attack, int defense) {
         super(name, health, attack, defense);
+        this.maxHealth = health;
         this.inventory = new ArrayList<>();
         this.activeQuests = new ArrayList<>();
         this.equippedArmor = null;
