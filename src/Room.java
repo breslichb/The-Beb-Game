@@ -15,10 +15,10 @@ import java.util.Random;
  */
 public abstract class Room implements Serializable {
     /** The map we reside in */
-    private GameMap parentMap;
+    protected GameMap parentMap;
 
     /** Our room ID */
-    private Integer roomID;
+    protected Integer roomID;
 
     /** The current number of rooms in existence. */
     private static Integer numRooms = 0;
@@ -59,6 +59,22 @@ public abstract class Room implements Serializable {
 
         // Init map linkage
         parentMap = parent;
+    }
+
+    /**
+     * Returns a string describing the room. Also does things on entry.
+     * @return a string describing the interaction.
+     */
+    public String onEntry(){
+        return "You enter " + desc;
+    }
+
+    /**
+     * Allows a player to interact with the room itself.
+     * @return a string describing the interaction.
+     */
+    public String interact(){
+        return "You don't see anything particularly interesting you can do with this room.";
     }
 
     /**
@@ -139,7 +155,7 @@ public abstract class Room implements Serializable {
      * Gets a random description from a provided description file using RandomAccessFile
      * @return the description.
      */
-    public String getRandomDesc(){
+    public String getRandomDesc() {
         try {
             descFile = Files.readAllLines(Paths.get(descFileName));
             // Get a random position

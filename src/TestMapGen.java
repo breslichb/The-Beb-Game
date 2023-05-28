@@ -21,7 +21,10 @@ public class TestMapGen {
      */
     @BeforeAll
     static void init() {
-        g = new GameMap(10, 10, 2, 2, 5, 5, Player.createPlayer("DEFAULT"));
+
+        Player p = Player.createPlayer("DEFAULT");
+        g = new GameMap(10, 10, 2, 2, 5, 5, p);
+
     }
 
     /**
