@@ -28,8 +28,8 @@ public class TestDBConnector {
      */
     @BeforeAll
     static void init() {
-        g = new GameMap(10, 10, 2, 2, 5, 5);
         p = Player.createPlayer("DEFAULT");
+        g = new GameMap(10, 10, 2, 2, 5, 5, p);
         con = DBConnector.connect();
     }
 
