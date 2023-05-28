@@ -32,7 +32,7 @@ public class GameMap implements Serializable {
     public enum Direction{NORTH, EAST, WEST, SOUTH}
 
     /** The cap on random rooms, so we don't generate a million for large areas. */
-    private static final double RANDOM_ROOM_PERCENTAGE = 0.6;
+    private static final double RANDOM_ROOM_PERCENTAGE = 0.75;
 
     /** Lets our floors get bigger as we go lower. */
     private static final int NEW_FLOOR_SIZE_FACTOR = 2;
@@ -193,7 +193,6 @@ public class GameMap implements Serializable {
         // We have 2 arraylists. One stores the coords for rooms we'll generate, and one stores room coords
         // adjacent to our current rooms.
         ArrayList<int[]> coords = new ArrayList<int[]>();
-        coords.add(new int[]{startY, startX});
         ArrayList<int[]> adjacencies = new ArrayList<int[]>();
         adjacencies.add(new int[]{startY, startX});
 
@@ -202,7 +201,7 @@ public class GameMap implements Serializable {
             int[] coord = adjacencies.get(r.nextInt(adjacencies.size()));
             coords.add(coord);
             adjacencies.remove(coord);
-            adjacencies.addAll(getAdjacencies(coord[1], coord[0], adjacencies));
+            adjacencies.addAll(getAdjacencies(coord[1], coord[0], adjacencies, coords));
         }
 
         int numDescents = 1;
@@ -240,14 +239,17 @@ public class GameMap implements Serializable {
     /**
      * Gets the adjacent coordinates in every direction for a given coordinate pair.
      */
-    public ArrayList<int[]> getAdjacencies(int x, int y, ArrayList<int[]> coordsList) {
+    public ArrayList<int[]> getAdjacencies(int x, int y, ArrayList<int[]> adjacenciesList , ArrayList<int[]> coordsList) {
         ArrayList<int[]> retList = new ArrayList<int[]>();
         // Cycle through every possible direction from our room
+        dir:
         for(Direction dir : Direction.values()) {
             int[] coords = getCoordsFromDir(x, y, dir);
             // Don't bother if this is already a coordinate we want to use
-            if(coordsList.contains(coords)) {
-                continue;
+            for(int[] coord : coordsList) {
+                if(coord[0] == coords[0] && coord[1] == coords[1]) {
+                    continue dir;
+                }
             }
             // check to make sure a given direction is valid
             if (coords[0] >= 0 && coords[0] <= rooms.length && coords[1] >= 0 && coords[1] <= rooms[0].length) {
