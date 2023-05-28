@@ -123,7 +123,5 @@ class Player extends Mobs implements Serializable {
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        System.out.println(getName() + " takes " + damage + " damage.");
-        System.out.println("Current health: " + getHealth() + "/" + getMaxHealth());
     }
 }
