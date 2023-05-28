@@ -66,7 +66,19 @@ public abstract class Room implements Serializable {
      * @return a string describing the interaction.
      */
     public String onEntry(){
-        return "You enter " + desc;
+        String retString = "You enter " + desc + ".";
+        if(items.size() > 0) {
+            for(Item i : items) {
+                retString += "\nThere is a " + i.getName() + " inside.";
+            }
+        }
+        if(enemies.size() > 0) {
+            retString += "\nThere is a " + enemies.get(0).getName() + " inside.";
+        }
+        if(npcs.size() > 0) {
+            retString += "\nYou see " + npcs.get(0).getName() + " inside.";
+        }
+        return retString + "\n";
     }
 
     /**

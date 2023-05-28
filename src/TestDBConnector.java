@@ -51,13 +51,8 @@ public class TestDBConnector {
     @DisplayName("Test Serialization/Deserialization")
     void testSerialization() throws SQLException{
         DBConnector.putSaveState("save1", p, g, con);
-        Statement sqlStatement = con.createStatement();
-        ResultSet results = sqlStatement.executeQuery("SELECT id FROM savestates ORDER BY id DESC");
-        results.next();
-        int id = results.getInt("id");
-        Object[] o = DBConnector.getSaveStateByID(id, con);
-        Player p1 = (Player) o[1];
-        GameMap g1 = (GameMap) o[2];
+        GameMap g1 = DBConnector.getLatestSaveState(con);
+        Player p1 = g1.getPlayer();
         assertTrue(p.getName().equals(p1.getName()));
         ArrayList<Room> l1 = g1.getRoomsList();
         ArrayList<Room> l2 = g.getRoomsList();
