@@ -62,6 +62,13 @@ public abstract class Room implements Serializable {
     }
 
     /**
+     * Returns a string describing the room. Also does things on entry.
+     */
+    public String onEntry(){
+        return "You enter " + desc;
+    }
+
+    /**
      * Description getter
      * @return The room's description.
      */
@@ -139,7 +146,7 @@ public abstract class Room implements Serializable {
      * Gets a random description from a provided description file using RandomAccessFile
      * @return the description.
      */
-    public String getRandomDesc(){
+    public String getRandomDesc() {
         try {
             descFile = Files.readAllLines(Paths.get(descFileName));
             // Get a random position
