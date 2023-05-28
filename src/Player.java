@@ -105,27 +105,11 @@ class Player extends Mobs implements Serializable {
         return equippedArmor != null;
     }
 
-    //attack
-    public void attack(Mobs enemy) {
-        System.out.println(getName() + " attacks " + enemy.getName() + "!");
-        int damageDealt = calculateDamage(enemy);
-        enemy.takeDamage(damageDealt);
-        if (enemy.isDead()) {
-            setLastKilledEnemy(enemy);
-            System.out.println(enemy.getName() + " has been defeated.");
-        }
+    //talk
+    public void talk(NPC npc) {
+        System.out.println(getName() + " talking with " + npc.getName() + ".");
+        npc.dialogue();
     }
-        private int calculateDamage(Mobs enemy) {
-            // Calculate damage taking into account player's attack and enemy's defense
-            int attackDamage = getAttack() - enemy.getDefense();
-            return Math.max(0, attackDamage);
-        }
-
-        //talk
-        public void talk(NPC npc) {
-            System.out.println(getName() + " talking with " + npc.getName() + ".");
-            npc.dialogue();
-        }
 
     // the health ratio
     public int getMaxHealth() {

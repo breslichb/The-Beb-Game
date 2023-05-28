@@ -34,6 +34,18 @@ class Mobs implements Serializable {
         health = remainingHealth;
     }
 
+    public int attack(Mobs enemy) {
+        int damageDealt = calculateDamage(enemy);
+        enemy.takeDamage(damageDealt);
+        return damageDealt;
+    }
+
+    private int calculateDamage(Mobs enemy) {
+        // Calculate damage taking into account player's attack and enemy's defense
+        int attackDamage = getAttack() - enemy.getDefense();
+        return Math.max(0, attackDamage);
+    }
+
     //death method for player class
     public boolean isDead() {
         return getHealth() <= 0;
