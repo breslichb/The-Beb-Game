@@ -210,7 +210,7 @@ public class GameMap implements Serializable {
 
         // This is the loop that handles initializing rooms
         while(coords.size() > 0) {
-            int[] coord = coords.get(max(r.nextInt(coords.size()) - 1, 0));
+            int[] coord = coords.get(r.nextInt(coords.size()) - 1);
             if(rooms[coord[0]][coord[1]] != null) {
                 coords.remove(coord);
                 continue;
@@ -254,7 +254,7 @@ public class GameMap implements Serializable {
                 }
             }
             // check to make sure a given direction is valid
-            if (coords[0] >= 0 && coords[0] <= rooms.length && coords[1] >= 0 && coords[1] <= rooms[0].length) {
+            if (coords[0] >= 0 && coords[0] < rooms.length && coords[1] >= 0 && coords[1] < rooms[0].length) {
                 retList.add(getCoordsFromDir(x, y, dir));
             }
         }
