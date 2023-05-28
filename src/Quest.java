@@ -6,14 +6,16 @@ class Quest implements Serializable {
     private String description;
     private boolean isCompleted;
     private int killCount;
+    private int killGoal;
     private Item reward;
 
-    private Quest(String name, String description, Item reward) {
+    private Quest(String name, String description, int killGoal, Item reward) {
         this.name = name;
         this.description = description;
         isCompleted = false;
         this.reward = reward;
         killCount = 0;
+        this.killGoal = killGoal;
     }
 
     public static Quest createQuest(){
@@ -37,7 +39,7 @@ class Quest implements Serializable {
                 reward = Armor.createArmor();
                 break;
         }
-        return new Quest(name, desc, reward);
+        return new Quest(name, desc, kills, reward);
     }
 
     public String getName() {
@@ -52,17 +54,17 @@ class Quest implements Serializable {
         return isCompleted;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
     public int getKillCount() {
         return killCount;
     }
 
     public void incrementKillCount() {
         killCount++;
+        if(killCount == killGoal){
+            isCompleted = true;
+        }
     }
+    public Item getReward(){return reward;}
 
 }
 
