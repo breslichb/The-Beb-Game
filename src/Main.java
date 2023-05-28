@@ -42,7 +42,7 @@ public class Main {
         currentRoom = map.getPlayerRoom();
 
         //Inventory screen
-        MainInventory inventory = new MainInventory(player);
+        MainInventory inventory = new MainInventory(player, this);
         inventory.createFrame();
 
         //Quest screen

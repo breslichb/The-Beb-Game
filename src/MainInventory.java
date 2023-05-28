@@ -14,7 +14,7 @@ public class MainInventory {
     private JLabel inventoryLabel;
     private JFrame i;
 
-    MainInventory(Player p) {
+    MainInventory(Player p, Main m) {
         inventoryDisplay.setEditable(false);
         inventoryLabel.setText(p.getName() + "'s Inventory");
 
