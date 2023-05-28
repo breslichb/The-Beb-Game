@@ -104,14 +104,14 @@ public class GameMap implements Serializable {
 
     /**
      * Tries to move the player
-     * @return Whether the player moved or not.
+     * @return The room the player moved to if successful, null if the move was unsuccessful.
      */
-    public boolean tryMovePlayer(Direction dir) {
+    public Room tryMovePlayer(Direction dir) {
         if(canMove(playerLocation[1], playerLocation[0], dir)) {
             playerLocation = getCoordsFromDir(playerLocation[1], playerLocation[0], dir);
-            return true;
+            return rooms[playerLocation[0]][playerLocation[1]];
         }
-        return false;
+        return null;
     }
 
     /**
