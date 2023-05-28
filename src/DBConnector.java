@@ -62,10 +62,11 @@ public class DBConnector {
         Statement sqlStatement = con.createStatement();
         ResultSet results = sqlStatement.executeQuery("SELECT id, gamemap FROM savestates ORDER BY id DESC");
         results.next();
-        return (GameMap) results.getObject("gamemap");
+        GameMap g = (GameMap) deserializeObject(results.getBytes("gamemap"));
+        return g;
     }
 
-    public static int putSaveState(String name, Player p, GameMap map, Connection con) throws SQLException {
+    public static int putSaveState(String name, GameMap map, Connection con) throws SQLException {
         PreparedStatement ps = con.prepareStatement(putSerializedObjectSQL, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, name);
         ps.setBytes(2, serializeObject(map));

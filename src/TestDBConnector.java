@@ -50,7 +50,7 @@ public class TestDBConnector {
     @Test
     @DisplayName("Test Serialization/Deserialization")
     void testSerialization() throws SQLException{
-        DBConnector.putSaveState("save1", p, g, con);
+        DBConnector.putSaveState("save1", g, con);
         GameMap g1 = DBConnector.getLatestSaveState(con);
         Player p1 = g1.getPlayer();
         assertTrue(p.getName().equals(p1.getName()));

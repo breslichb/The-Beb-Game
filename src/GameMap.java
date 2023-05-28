@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static java.lang.Math.max;
+
 /**
  * The map class.
  * This class handles the 2-D representation of the game world, as well as any vertical links between rooms.
@@ -208,7 +210,7 @@ public class GameMap implements Serializable {
 
         // This is the loop that handles initializing rooms
         while(coords.size() > 0) {
-            int[] coord = coords.get(r.nextInt(coords.size()));
+            int[] coord = coords.get(max(r.nextInt(coords.size()) - 1, 0));
             if(rooms[coord[0]][coord[1]] != null) {
                 coords.remove(coord);
                 continue;
