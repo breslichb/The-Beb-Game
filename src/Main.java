@@ -130,20 +130,22 @@ public class Main {
         talkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Greeting, traveler I have some quest for you.\n");
-                Quest killMonsterQuest = new Quest("Kill Monsters!", "Kill 5 Monsters");
-                player.addToQuests(killMonsterQuest);
-                quests.updateQuestDisplay(player);
+                playArea.setText(playArea.getText() + "====================\n");
+                ArrayList<NPC> npcs = currentRoom.getNPCs();
+                if (npcs.isEmpty()) {
+                    playArea.setText(playArea.getText() + "There is no one here.\n");
+                } else {
+                    NPC npc = npcs.get(0);
+                    if (npc.getAvailableQuest() == null) {
+                        playArea.setText(playArea.getText() + "\"I already gave you my quest, adventurer.\"\n");
+                    } else {
+                        player.talk(npc);
+                        playArea.setText(playArea.getText() + "\"Hello, adventurer! I will reward you for completing my quest!\"\n" +
+                                "New Quest: " + npc.getAvailableQuest().getName());
+                    }
+                }
             }
         });
-     /*   talkButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + "====================\n");
-                playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add talk() function*.\n");
-            }
-        });*/
-
         interactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -189,13 +191,6 @@ public class Main {
                 inventory.setVisible();
             }
         });
-
-     /*   questsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                quests.setVisible();
-            }
-        });*/
         questsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -206,6 +201,7 @@ public class Main {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 try {
                     DBConnector.putSaveState(player.getName(), player, map, con);
                     playArea.setText(playArea.getText() + "Game successfully saved!\n");

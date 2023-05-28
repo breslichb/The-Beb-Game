@@ -3,7 +3,6 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class MainQuests {
     private JPanel questsPanel;
@@ -15,9 +14,6 @@ public class MainQuests {
     MainQuests(Player p) {
         questDisplay.setEditable(false);
         questLabel.setText(p.getName() + "'s Quests");
-
-     //   p.addToQuests(new Quest("Kill Monsters!", "Kill 10 Spiders"));
-     //    p.addToQuests(new Quest("Gather Items!", "Collect 3 Swords"));
 
         Quest[] quests = p.getActiveQuests();
 
