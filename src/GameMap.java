@@ -32,7 +32,10 @@ public class GameMap implements Serializable {
     public enum Direction{NORTH, EAST, WEST, SOUTH}
 
     /** The cap on random rooms, so we don't generate a million for large areas. */
-    private static final int RANDOM_ROOM_CAP = 20;
+    private static final double RANDOM_ROOM_PERCENTAGE = 0.6;
+
+    /** Lets our floors get bigger as we go lower. */
+    private static final int NEW_FLOOR_SIZE_FACTOR = 2;
 
     /**
      * Generates our game map.
@@ -63,13 +66,28 @@ public class GameMap implements Serializable {
     }
 
     /**
+     * Generates a new GameMap. Used when traversing floors.
+     */
+    public void regenerate(){
+        int startX = playerLocation[1];
+        int startY = playerLocation[0];
+        rooms = new Room[rooms.length + NEW_FLOOR_SIZE_FACTOR][rooms[0].length + NEW_FLOOR_SIZE_FACTOR];
+        roomsList = new ArrayList<Room>();
+
+        addRoom(startX, startY, new StartingRoom(this));
+        generateRooms(startX, startY, 3, 3);
+    }
+
+    /**
      * Prints our current game map to a string. This shows our room layout.
      */
     public String toString(){
         StringBuilder str = new StringBuilder("");
         for(int i = 0; i < rooms.length; i++) {
             for(int j = 0; j < rooms[0].length; j++) {
-                if(rooms[i][j] != null) {
+                if(rooms[i][j] == getPlayerRoom()) {
+                    str.append("|/");
+                } else if (rooms[i][j] != null) {
                     str.append("|*");
                 } else {
                     str.append("|_");
@@ -162,9 +180,9 @@ public class GameMap implements Serializable {
         // Get our room totals. If we don't have enough rooms to actually generate all our quests/enemies,
         // we just abort early, so we don't have to worry about randomRooms being negative.
         int possibleRooms = startX * startY - 1;
-        int randomRooms = possibleRooms - (numQuests * 2) - numEnemies;
+        int randomRooms = possibleRooms - numQuests - numEnemies;
         if(randomRooms > 0) {
-            randomRooms = Math.min(RANDOM_ROOM_CAP, randomRooms);
+            randomRooms = (int) (randomRooms * RANDOM_ROOM_PERCENTAGE);
         }
         int roomsToGenerate = randomRooms + numQuests * 2 + numEnemies;
 
@@ -185,10 +203,18 @@ public class GameMap implements Serializable {
             adjacencies.addAll(getAdjacencies(coord[1], coord[0], adjacencies));
         }
 
+        int numDescents = 1;
+
         // This is the loop that handles initializing rooms
         while(coords.size() > 0) {
             int[] coord = coords.get(r.nextInt(coords.size()));
             if(rooms[coord[0]][coord[1]] != null) {
+                coords.remove(coord);
+                continue;
+            }
+            if(numDescents > 0) {
+                numDescents--;
+                addRoom(coord[1], coord[0], new DescendingRoom(this));
                 coords.remove(coord);
                 continue;
             }
