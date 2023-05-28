@@ -53,7 +53,11 @@ public class Main {
         playArea.setEditable(false);
         playerStats.setEditable(false);
 
+        //beginning stat display
         updatePlayerStats();
+
+        //initial onEntry call
+        playArea.setText(currentRoom.onEntry() + "\n");
 
         /* ==== Movement Action Listeners ==== */
         northButton.addActionListener(new ActionListener() {
@@ -65,7 +69,8 @@ public class Main {
                 } else {
                     currentRoom = temp;
                     updatePlayerStats();
-                    playArea.setText(playArea.getText() + player.getName() + " travelled North.\n");
+                    playArea.setText(playArea.getText() + player.getName() + " travelled North.\n"
+                            + currentRoom.onEntry() + "\n");
                 }
             }
         });
@@ -78,7 +83,8 @@ public class Main {
                 } else {
                     currentRoom = temp;
                     updatePlayerStats();
-                    playArea.setText(playArea.getText() + player.getName() + " travelled East.\n");
+                    playArea.setText(playArea.getText() + player.getName() + " travelled East.\n"
+                            + currentRoom.onEntry() + "\n");
                 }
             }
         });
@@ -91,7 +97,8 @@ public class Main {
                 } else {
                     currentRoom = temp;
                     updatePlayerStats();
-                    playArea.setText(playArea.getText() + player.getName() + " travelled South.\n");
+                    playArea.setText(playArea.getText() + player.getName() + " travelled South.\n"
+                            + currentRoom.onEntry() + "\n");
                 }
             }
         });
@@ -104,7 +111,8 @@ public class Main {
                 } else {
                     currentRoom = temp;
                     updatePlayerStats();
-                    playArea.setText(playArea.getText() + player.getName() + " travelled West.\n");
+                    playArea.setText(playArea.getText() + player.getName() + " travelled West.\n"
+                            + currentRoom.onEntry() + "\n");
                 }
             }
         });
@@ -168,7 +176,8 @@ public class Main {
                 + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
                 + "\nStrength: " + player.getAttack()
                 + "\nDefense : " + player.getDefense()
-                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")");
+                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")"
+                + "\n" + map.toString());
     }
 
 
