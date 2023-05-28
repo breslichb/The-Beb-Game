@@ -63,6 +63,7 @@ public class Main {
         northButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 Room temp = map.tryMovePlayer(GameMap.Direction.NORTH);
                 if (temp == null) {
                     playArea.setText(playArea.getText() + "Cannot go North.\n");
@@ -77,6 +78,7 @@ public class Main {
         eastButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 Room temp = map.tryMovePlayer(GameMap.Direction.EAST);
                 if (temp == null) {
                     playArea.setText(playArea.getText() + "Cannot go East.\n");
@@ -91,6 +93,7 @@ public class Main {
         southButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 Room temp = map.tryMovePlayer(GameMap.Direction.SOUTH);
                 if (temp == null) {
                     playArea.setText(playArea.getText() + "Cannot go South.\n");
@@ -105,6 +108,7 @@ public class Main {
         westButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 Room temp = map.tryMovePlayer(GameMap.Direction.WEST);
                 if (temp == null) {
                     playArea.setText(playArea.getText() + "Cannot go West.\n");
@@ -121,26 +125,44 @@ public class Main {
         talkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + "====================\n");
                 playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add talk() function*.\n");
             }
         });
         interactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add interact() function (also ask what this would do because I forgot)*.\n");
+                playArea.setText(playArea.getText() + "====================\n");
+                playArea.setText(playArea.getText() + currentRoom.interact() + "\n");
                 updatePlayerStats();
             }
         });
         attackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Enemy> enemies = map.getRoomByCoords(0, 0).getEnemies();  //current coords thing again
-                player.takeDamage(10);
-                updatePlayerStats();
+                playArea.setText(playArea.getText() + "====================\n");
+                ArrayList<Enemy> enemies = currentRoom.getEnemies();
                 if (enemies.isEmpty()) {
                     playArea.setText(playArea.getText() + "There is nothing to attack!\n");
                 } else {
-                    playArea.setText(playArea.getText() + "Oh no an enemy ahhhhhh!\n");     //ask bayasaa to implement an attack() method
+                    Enemy enemy = enemies.get(0);
+                    int damage = player.attack(enemy);
+                    playArea.setText(playArea.getText() + player.getName() + " attacks " + enemy.getName() + "!\n"
+                            + player.getName() + " dealt " + damage + " damage to " + enemy.getName() + "!\n");
+                    if (enemy.isDead()) {
+                        player.setLastKilledEnemy(enemy);
+                        playArea.setText(playArea.getText() + player.getName() + " killed " + enemy.getName() + "!\n");
+                        currentRoom.removeEnemy(enemy);
+                    } else {
+                        damage = enemy.attack(player);
+                        playArea.setText(playArea.getText() + enemy.getName() + " attacks " + player.getName() + "!\n"
+                                + enemy.getName() + " dealt " + damage + " damage to " + player.getName() + "!\n");
+                        if (player.isDead()) {
+                            f.dispose();
+                            GameOver gameOver = new GameOver();
+                            gameOver.createFrame();
+                        }
+                    }
                 }
             }
         });
@@ -156,6 +178,13 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 quests.setVisible();
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                player.takeDamage(Integer.MAX_VALUE);
+                updatePlayerStats();
             }
         });
     }
@@ -177,7 +206,7 @@ public class Main {
                 + "\nStrength: " + player.getAttack()
                 + "\nDefense : " + player.getDefense()
                 + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")"
-                + "\n" + map.toString());
+        );
     }
 
 
