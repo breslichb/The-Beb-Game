@@ -41,6 +41,13 @@ public class Main {
         map = m;
         currentRoom = map.getPlayerRoom();
 
+        //Inventory screen
+        MainInventory inventory = new MainInventory(player);
+        inventory.createFrame();
+
+        //Quest screen
+        MainQuests quests = new MainQuests(player);
+        quests.createFrame();
 
         //set the text areas to not be editable
         playArea.setEditable(false);
@@ -134,15 +141,13 @@ public class Main {
         inventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainInventory inventory = new MainInventory(player);
-                inventory.createFrame();
+                inventory.setVisible();
             }
         });
         questsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainQuests quests = new MainQuests(player);
-                quests.createFrame();
+                quests.setVisible();
             }
         });
     }

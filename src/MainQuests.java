@@ -10,6 +10,7 @@ public class MainQuests {
     private JLabel questLabel;
     private JTextArea questDisplay;
     private JScrollPane questScroll;
+    private JFrame q;
 
     MainQuests(Player p) {
         questDisplay.setEditable(false);
@@ -26,10 +27,14 @@ public class MainQuests {
     }
 
     public void createFrame() {
-        JFrame q = new JFrame("Quests");
+        q = new JFrame("Quests");
         q.setContentPane(questsPanel);
         q.pack();
-        q.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        q.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        q.setVisible(false);
+    }
+
+    public void setVisible() {
         q.setVisible(true);
     }
 
