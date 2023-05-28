@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Main {
@@ -34,12 +36,14 @@ public class Main {
     private static Player player;
     private static GameMap map;
     private static Room currentRoom;
+    private static Connection con;
 
-    public Main(Player p, GameMap m) {
+    public Main(Player p, GameMap m, Connection c) {
         //set static fields
         player = p;
         map = m;
         currentRoom = map.getPlayerRoom();
+        con = c;
 
         //Inventory screen
         MainInventory inventory = new MainInventory(player, this);
@@ -202,8 +206,12 @@ public class Main {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                player.takeDamage(Integer.MAX_VALUE);
-                updatePlayerStats();
+                try {
+                    DBConnector.putSaveState(player.getName(), player, map, con);
+                    playArea.setText(playArea.getText() + "Game successfully saved!\n");
+                } catch (SQLException ex) {
+                    playArea.setText(playArea.getText() + "ERROR: Cannot save game.\n" + ex.getMessage() + '\n');
+                }
             }
         });
     }

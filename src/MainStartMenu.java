@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MainStartMenu {
 
@@ -29,11 +31,20 @@ public class MainStartMenu {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //connect to database and get save player and map
-                String name = "DEFAULT";
-                Player player = Player.createPlayer(name);
-                GameMap map = new GameMap(5, 5, 1, 1, player);
-                Main main = new Main(player, map);
+
+                //connect to the database
+                Connection con = DBConnector.connect();
+                //pull from database
+                GameMap map = null;
+                try {
+                    map = DBConnector.getLatestSaveState(con);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+                //get player
+                Player player = map.getPlayer();
+                //create main
+                Main main = new Main(player, map, con);
                 main.startGame();
                 s.dispose();
             }

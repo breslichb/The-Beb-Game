@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class MainNewGame {
     private JPanel newGamePanel;
@@ -20,12 +21,15 @@ public class MainNewGame {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //connect to the database
+                Connection con = DBConnector.connect();
+                //player creation
                 String name = playerNameField.getText();
                 Player player = Player.createPlayer(name);
-
-                GameMap map = new GameMap(10, 10, 1, 1, player);
-              
-                Main main = new Main(player, map);
+                //make map
+                GameMap map = new GameMap(5, 5, 1, 1, player);
+                //create main
+                Main main = new Main(player, map, con);
                 main.startGame();
                 n.dispose();
             }

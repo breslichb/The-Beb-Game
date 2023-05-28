@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.List;
 
-class Quest {
+class Quest implements Serializable {
     private String name;
     private String description;
     private boolean isCompleted;

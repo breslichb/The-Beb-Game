@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DBConnector {
     private static String dburl = "jdbc:mysql://localhost:3306/bebdb";
     private static String username = "root";
-    private static String password = "";
+    private static String password = "2003";
     private static String putSerializedObjectSQL = "INSERT INTO savestates(name, gamemap) VALUES (?, ?)";
     private static String getSerializedObjectSQLbyID = "SELECT name, gamemap FROM savestates WHERE id = ";
     private static String getSerializedObjectSQLbyName = "SELECT gamemap FROM savestates WHERE name LIKE *?*";
