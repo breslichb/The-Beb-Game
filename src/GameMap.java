@@ -180,7 +180,7 @@ public class GameMap implements Serializable {
         // Get our room totals. If we don't have enough rooms to actually generate all our quests/enemies,
         // we just abort early, so we don't have to worry about randomRooms being negative.
         int possibleRooms = startX * startY - 1;
-        int randomRooms = possibleRooms - (numQuests * 2) - numEnemies;
+        int randomRooms = possibleRooms - numQuests - numEnemies;
         if(randomRooms > 0) {
             randomRooms = (int) (randomRooms * RANDOM_ROOM_PERCENTAGE);
         }
@@ -204,7 +204,7 @@ public class GameMap implements Serializable {
         }
 
         int numDescents = 1;
-        
+
         // This is the loop that handles initializing rooms
         while(coords.size() > 0) {
             int[] coord = coords.get(r.nextInt(coords.size()));
