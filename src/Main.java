@@ -205,7 +205,8 @@ public class Main {
                 + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
                 + "\nStrength: " + player.getAttack()
                 + "\nDefense : " + player.getDefense()
-                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")"
+                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")\n"
+                + map.toString()
         );
     }
 
