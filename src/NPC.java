@@ -7,9 +7,13 @@ class NPC implements Serializable {
     private String name;
     private Quest availableQuest;
 
-    public NPC(String name, Quest quest) {
+    private NPC(String name, Quest quest) {
         this.name = name;
         this.availableQuest = quest;
+    }
+
+    public static NPC createNPC(String name){
+        return new NPC(name, Quest.createQuest());
     }
 
     public String getName() {

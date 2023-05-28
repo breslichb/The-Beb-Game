@@ -139,9 +139,9 @@ public class Main {
                     if (npc.getAvailableQuest() == null) {
                         playArea.setText(playArea.getText() + "\"I already gave you my quest, adventurer.\"\n");
                     } else {
-                        player.talk(npc);
                         playArea.setText(playArea.getText() + "\"Hello, adventurer! I will reward you for completing my quest!\"\n" +
-                                "New Quest: " + npc.getAvailableQuest().getName());
+                                "New Quest: " + npc.getAvailableQuest().getName() + "\n");
+                        player.talk(npc);
                     }
                 }
             }
@@ -203,7 +203,7 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 playArea.setText(playArea.getText() + "====================\n");
                 try {
-                    DBConnector.putSaveState(player.getName(), player, map, con);
+                    DBConnector.putSaveState(player.getName(), map, con);
                     playArea.setText(playArea.getText() + "Game successfully saved!\n");
                 } catch (SQLException ex) {
                     playArea.setText(playArea.getText() + "ERROR: Cannot save game.\n" + ex.getMessage() + '\n');
