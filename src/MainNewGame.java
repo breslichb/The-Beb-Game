@@ -22,7 +22,9 @@ public class MainNewGame {
             public void actionPerformed(ActionEvent e) {
                 String name = playerNameField.getText();
                 Player player = Player.createPlayer(name);
-                GameMap map = new GameMap(5, 5, 1, 1, 0, 0, player);
+
+                GameMap map = new GameMap(10, 10, 1, 1, player);
+              
                 Main main = new Main(player, map);
                 main.startGame();
                 n.dispose();

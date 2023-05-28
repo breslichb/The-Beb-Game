@@ -8,7 +8,7 @@ import java.util.List;
 
 class Player extends Mobs implements Serializable {
 
-    private List<String> inventory;
+    private List<Item> inventory;
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
     private Armor equippedArmor;
@@ -43,21 +43,11 @@ class Player extends Mobs implements Serializable {
         return lastKilledEnemy;
     }
 
-    public void addToInventory(String item) {
+    public void addToInventory(Item item) {
         inventory.add(item);
     }
 
-    public List<String> getInventory(){return inventory;}
-
-    public int getAmuletCount() {
-        int count = 0;
-        for (String item : inventory) {
-            if (item.equals("Amulet of Power")) {
-                count++;
-            }
-        }
-        return count;
-    }
+    public List<Item> getInventory(){return inventory;}
 
     public Quest[] getActiveQuests() {
         return activeQuests.toArray(new Quest[0]);

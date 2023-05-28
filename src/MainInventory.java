@@ -12,26 +12,31 @@ public class MainInventory {
     private JScrollPane inventoryScroll;
     private JTextArea inventoryDisplay;
     private JLabel inventoryLabel;
+    private JFrame i;
 
-    MainInventory(Player p) {
+    MainInventory(Player p, Main m) {
         inventoryDisplay.setEditable(false);
         inventoryLabel.setText(p.getName() + "'s Inventory");
 
-        p.addToInventory("Sword");
-        p.addToInventory("Helmet");
+        p.addToInventory(new Item("Helmet", "Head Protection", 3));
+        p.addToInventory(new Item("Sword", "Stabby stick", 2));
 
-        List<String> inventory = p.getInventory();
+        List<Item> inventory = p.getInventory();
 
-        for (String i : inventory) {
-            inventoryDisplay.setText(inventoryDisplay.getText() + i + "\n");
+        for (Item i : inventory) {
+            inventoryDisplay.setText(inventoryDisplay.getText() + i.getName() + "\n");
         }
     }
 
     public void createFrame() {
-        JFrame i = new JFrame("Inventory");
+        i = new JFrame("Inventory");
         i.setContentPane(inventoryPanel);
         i.pack();
-        i.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        i.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        i.setVisible(false);
+    }
+
+    public void setVisible() {
         i.setVisible(true);
     }
 

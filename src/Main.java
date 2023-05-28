@@ -33,47 +33,79 @@ public class Main {
     private JScrollPane playAreaScroll;
     private static Player player;
     private static GameMap map;
+    private static Room currentRoom;
 
     public Main(Player p, GameMap m) {
         //set static fields
         player = p;
         map = m;
+        currentRoom = map.getPlayerRoom();
 
+        //Inventory screen
+        MainInventory inventory = new MainInventory(player, this);
+        inventory.createFrame();
+
+        //Quest screen
+        MainQuests quests = new MainQuests(player);
+        quests.createFrame();
 
         //set the text areas to not be editable
         playArea.setEditable(false);
         playerStats.setEditable(false);
 
-        //set text areas to have display text
-        playerStats.setText(player.getName()
-                + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
-                + "\nStrength: " + player.getAttack()
-                + "\nDefense : " + player.getDefense());
-        playArea.setText("Current Location: *Ask Ben to add a way to retrieve current coords*\n");
+        updatePlayerStats();
 
         /* ==== Movement Action Listeners ==== */
         northButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Moved North.\n");
+                Room temp = map.tryMovePlayer(GameMap.Direction.NORTH);
+                if (temp == null) {
+                    playArea.setText(playArea.getText() + "Cannot go North.\n");
+                } else {
+                    currentRoom = temp;
+                    updatePlayerStats();
+                    playArea.setText(playArea.getText() + player.getName() + " travelled North.\n");
+                }
             }
         });
         eastButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Moved East.\n");
+                Room temp = map.tryMovePlayer(GameMap.Direction.EAST);
+                if (temp == null) {
+                    playArea.setText(playArea.getText() + "Cannot go East.\n");
+                } else {
+                    currentRoom = temp;
+                    updatePlayerStats();
+                    playArea.setText(playArea.getText() + player.getName() + " travelled East.\n");
+                }
             }
         });
         southButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Moved South.\n");
+                Room temp = map.tryMovePlayer(GameMap.Direction.SOUTH);
+                if (temp == null) {
+                    playArea.setText(playArea.getText() + "Cannot go South.\n");
+                } else {
+                    currentRoom = temp;
+                    updatePlayerStats();
+                    playArea.setText(playArea.getText() + player.getName() + " travelled South.\n");
+                }
             }
         });
         westButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playArea.setText(playArea.getText() + player.getName() + " Moved West.\n");
+                Room temp = map.tryMovePlayer(GameMap.Direction.WEST);
+                if (temp == null) {
+                    playArea.setText(playArea.getText() + "Cannot go West.\n");
+                } else {
+                    currentRoom = temp;
+                    updatePlayerStats();
+                    playArea.setText(playArea.getText() + player.getName() + " travelled West.\n");
+                }
             }
         });
 
@@ -109,15 +141,13 @@ public class Main {
         inventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainInventory inventory = new MainInventory(player);
-                inventory.createFrame();
+                inventory.setVisible();
             }
         });
         questsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainQuests quests = new MainQuests(player);
-                quests.createFrame();
+                quests.setVisible();
             }
         });
     }
@@ -132,10 +162,13 @@ public class Main {
     }
 
     public void updatePlayerStats() {
+        int[] pos = map.getPlayerLocation();
+
         playerStats.setText(player.getName()
                 + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
                 + "\nStrength: " + player.getAttack()
-                + "\nDefense : " + player.getDefense());
+                + "\nDefense : " + player.getDefense()
+                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")");
     }
 
 
