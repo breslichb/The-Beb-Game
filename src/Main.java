@@ -46,7 +46,7 @@ public class Main {
 
         //set text areas to have display text
         playerStats.setText(player.getName()
-                + "\nHealth  : " + player.getHealth() + " / " + player.getHealth()
+                + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
                 + "\nStrength: " + player.getAttack()
                 + "\nDefense : " + player.getDefense());
         playArea.setText("Current Location: *Ask Ben to add a way to retrieve current coords*\n");
@@ -133,7 +133,7 @@ public class Main {
 
     public void updatePlayerStats() {
         playerStats.setText(player.getName()
-                + "\nHealth  : " + player.getHealth() + " / " + player.getHealth()
+                + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
                 + "\nStrength: " + player.getAttack()
                 + "\nDefense : " + player.getDefense());
     }
