@@ -203,10 +203,18 @@ public class GameMap implements Serializable {
             adjacencies.addAll(getAdjacencies(coord[1], coord[0], adjacencies));
         }
 
+        int numDescents = 1;
+        
         // This is the loop that handles initializing rooms
         while(coords.size() > 0) {
             int[] coord = coords.get(r.nextInt(coords.size()));
             if(rooms[coord[0]][coord[1]] != null) {
+                coords.remove(coord);
+                continue;
+            }
+            if(numDescents > 0) {
+                numDescents--;
+                addRoom(coord[1], coord[0], new DescendingRoom(this));
                 coords.remove(coord);
                 continue;
             }
