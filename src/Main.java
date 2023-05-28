@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -170,6 +171,18 @@ public class Main {
                         player.setLastKilledEnemy(enemy);
                         playArea.setText(playArea.getText() + player.getName() + " killed " + enemy.getName() + "!\n");
                         currentRoom.removeEnemy(enemy);
+
+                        Quest[] quests = player.getActiveQuests();
+
+                        for (Quest q : quests) {
+                            q.incrementKillCount();
+                            if (q.isCompleted()) {
+                                playArea.setText(playArea.getText() + "====================\n" + "You completed a quest! Your reward: " + q.getReward().getName() + "\n");
+                                player.addToInventory(q.getReward());
+                                player.completeQuest(q);
+                            }
+                        }
+
                     } else {
                         damage = enemy.attack(player);
                         playArea.setText(playArea.getText() + enemy.getName() + " attacks " + player.getName() + "!\n"

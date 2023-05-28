@@ -63,7 +63,6 @@ class Player extends Mobs implements Serializable {
 
     public void completeQuest(Quest quest) {
         activeQuests.remove(quest);
-        System.out.println("Congratulations! You have completed the quest: " + quest.getName());
     }
 
     public boolean hasActiveQuests() {
