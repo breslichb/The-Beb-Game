@@ -91,6 +91,8 @@ public class GameMap implements Serializable {
                     str.append("|/");
                 } else if (rooms[i][j] instanceof DescendingRoom) {
                     str.append("|^");
+                }else if (rooms[i][j] instanceof NPCRoom){
+                    str.append("|!");
                 } else if (rooms[i][j] != null) {
                     str.append("|*");
                 } else {
