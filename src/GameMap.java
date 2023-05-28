@@ -69,7 +69,9 @@ public class GameMap implements Serializable {
         StringBuilder str = new StringBuilder("");
         for(int i = 0; i < rooms.length; i++) {
             for(int j = 0; j < rooms[0].length; j++) {
-                if(rooms[i][j] != null) {
+                if(rooms[i][j] == getPlayerRoom()) {
+                    str.append("|/");
+                } else if (rooms[i][j] != null) {
                     str.append("|*");
                 } else {
                     str.append("|_");
