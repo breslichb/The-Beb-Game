@@ -122,13 +122,24 @@ public class Main {
         });
 
         /* ==== Player Action Action Listeners ==== */
+
         talkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                playArea.setText(playArea.getText() + player.getName() + " Greeting, traveler I have some quest for you.\n");
+                Quest killMonsterQuest = new Quest("Kill Monsters!", "Kill 5 Monsters");
+                player.addToQuests(killMonsterQuest);
+                quests.updateQuestDisplay(player);
+            }
+        });
+     /*   talkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 playArea.setText(playArea.getText() + "====================\n");
                 playArea.setText(playArea.getText() + player.getName() + " Spoke to an NPC - *Ask Bayasaa to add talk() function*.\n");
             }
-        });
+        });*/
+
         interactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -174,9 +185,17 @@ public class Main {
                 inventory.setVisible();
             }
         });
+
+     /*   questsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quests.setVisible();
+            }
+        });*/
         questsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                quests.updateQuestDisplay(player);
                 quests.setVisible();
             }
         });
