@@ -17,6 +17,9 @@ public class GameMap implements Serializable {
     /** A list of all our rooms, for ease of access. */
     private ArrayList<Room> roomsList;
 
+    /** The player currently in the Map */
+    private Player player;
+
     /** An int array that stores the player's location. 2-size, made on init.*/
     private int[] playerLocation;
 
@@ -40,7 +43,7 @@ public class GameMap implements Serializable {
      * @param startX Starting X Coordinate.
      * @param startY Starting Y Coordinate.
      */
-    public GameMap(int xdim, int ydim, int numQuests, int numEnemies, int startX, int startY) {
+    public GameMap(int xdim, int ydim, int numQuests, int numEnemies, int startX, int startY, Player player) {
         // Init room lists
         rooms = new Room[ydim][xdim];
         roomsList = new ArrayList<Room>();
@@ -49,13 +52,14 @@ public class GameMap implements Serializable {
         addRoom(startX, startY, new StartingRoom(this));
         playerLocation = new int[]{startY, startX};
         generateRooms(startX, startY, numQuests, numEnemies);
+        this.player = player;
     }
 
     /**
      * Generates a game map using a central starting location.
      */
-    public GameMap(int xdim, int ydim, int numQuests, int numEnemies) {
-        this(xdim, ydim, numQuests, numEnemies, xdim / 2, ydim / 2);
+    public GameMap(int xdim, int ydim, int numQuests, int numEnemies, Player player) {
+        this(xdim, ydim, numQuests, numEnemies, xdim / 2, ydim / 2, player);
     }
 
     /**
@@ -75,6 +79,12 @@ public class GameMap implements Serializable {
         }
         return str.toString();
     }
+
+    /**
+     * Gets the player.
+     * @return the player object.
+     */
+    public Player getPlayer() {return player;}
 
     /**
      * Return's the player's location.
