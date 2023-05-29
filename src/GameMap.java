@@ -256,8 +256,8 @@ public class GameMap implements Serializable {
                 }
             }
             // check to make sure a given direction is valid
-            if (coords[0] >= 0 && coords[0] <= rooms.length && coords[1] >= 0 && coords[1] <= rooms[0].length) {
-                retList.add(getCoordsFromDir(x, y, dir));
+            if (coords[0] >= 0 && coords[0] < rooms.length && coords[1] >= 0 && coords[1] < rooms[0].length) {
+                retList.add(coords);
             }
         }
         return retList;
