@@ -86,6 +86,11 @@ public abstract class Room implements Serializable {
      * @return a string describing the interaction.
      */
     public String interact(){
+        if(items.size() > 0) {
+            Item i = items.get(0);
+            parentMap.getPlayer().addToInventory(i);
+            removeItem(i);
+        }
         return "You don't see anything particularly interesting you can do with this room.";
     }
 
