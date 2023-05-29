@@ -25,6 +25,7 @@ class Player extends Mobs implements Serializable {
         this.weightMax = weightMax;
         weightCurr = 0;
         this.activeQuests = new ArrayList<>();
+        equippedItems = new Equipable[5];
     }
 
     public static Player createPlayer(String name) {

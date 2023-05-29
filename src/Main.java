@@ -177,12 +177,12 @@ public class Main {
                         for (Quest q : quests) {
                             q.incrementKillCount();
                             if (q.isCompleted()) {
-                                if(player.addToInventory(q.getReward())){
+                                if (player.addToInventory(q.getReward())) {
                                     player.completeQuest(q);
                                     playArea.setText(playArea.getText() + "====================\n" + "You completed a quest! Your reward: " + q.getReward().getName() + "\n");
-                                }else{
+                                } else {
                                     playArea.setText(playArea.getText() + "====================\n" + "You completed a quest!\n"
-                                                    + "But, you are carrying too much. You can receive the reward after your next kill if you have enough room.\n");
+                                            + "But, you are carrying too much. You can receive the reward after your next kill if you have enough room.\n");
                                 }
                             }
                         }
@@ -205,7 +205,12 @@ public class Main {
         inventoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                inventory.setVisible();
+                if (p.getInventory().size() == 0) {
+                    playArea.setText(playArea.getText() + "====================\n" + "You have nothing in your inventory.\n");
+                } else {
+                    inventory.updateInventoryDisplay(player);
+                    inventory.setVisible();
+                }
             }
         });
         questsButton.addActionListener(new ActionListener() {
