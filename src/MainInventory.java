@@ -3,6 +3,8 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 
@@ -12,20 +14,60 @@ public class MainInventory {
     private JScrollPane inventoryScroll;
     private JTextArea inventoryDisplay;
     private JLabel inventoryLabel;
+    private JButton upButton;
+    private JButton downButton;
+    private JButton useButton;
+    private JButton dropButton;
+    private JTextField selectedItemField;
+    private Item selectedItem;
+    private int selectedLoc;
     private JFrame i;
 
-    MainInventory(Player p, Main m) {
+    MainInventory(Player p) {
         inventoryDisplay.setEditable(false);
+        selectedItemField.setEditable(false);
         inventoryLabel.setText(p.getName() + "'s Inventory");
+        List<Item> inv = p.getInventory();
+        int size = inv.size();
+        upButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(selectedLoc > 0){
+                    selectedLoc--;
+                    selectedItem = inv.get(selectedLoc);
+                }
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(selectedLoc < size){
+                    selectedLoc++;
+                    selectedItem = inv.get(selectedLoc);
+                }
+            }
+        });
+        useButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(selectedItem instanceof Equipable){
+                    p.equipItem((Equipable)selectedItem);
+                }else if(selectedItem instanceof Consumable){
+                    
+                }
+            }
+        });
+    }
 
-        p.addToInventory(new Item("Helmet", "Head Protection", 3));
-        p.addToInventory(new Item("Sword", "Stabby stick", 2));
-
-        List<Item> inventory = p.getInventory();
-
-        for (Item i : inventory) {
-            inventoryDisplay.setText(inventoryDisplay.getText() + i.getName() + "\n");
+    public void updateInventoryDisplay(Player p) {
+        inventoryDisplay.setText("");
+        List<Item> inv = p.getInventory();
+        selectedItem = inv.get(0);
+        selectedLoc = 0;
+        for (Item i : inv){
+            inventoryDisplay.setText(inventoryDisplay.getText() + " - " + i.getName() + "\n");
         }
+        selectedItemField.setText(selectedItem.getName() + " Selected.");
     }
 
     public void createFrame() {

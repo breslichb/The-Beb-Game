@@ -23,23 +23,10 @@ public class Weapon extends Equipable {
     }
 
     /***
-     * Method to be called when the Player attempts to hit an enemy.
-     * @param playerAcc the Player's ACC stat
-     * @param playerStr the Player's STR stat
-     * @param enemyAvo  the Enemy's AVO stat
-     * @return the damage dealt to the enemy
+     * Method to be called when the Player hits an enemy. Reduced durability
      */
-    public int hit(int playerAcc, int playerStr, int enemyAvo, int enemyDef){
-
-        int hitChance = playerAcc + this.getMods()[3]; //Player ACC stat + Weapon LUCK stat
-        int damage = 0;
-
-        if(hitChance > enemyAvo){                                   //hits if hitChance is greater than enemyAvo
-            damage = playerStr + this.getMods()[1] - enemyDef;      //Player STR stat + Weapon STR stat - enemyDef
-            this.setDurability(this.getDurability()-1);             //Reduce durability
-        }
-
-        return damage;
+    public void hit(){
+        this.setDurability(this.getDurability()-1);
     }
 
     /**

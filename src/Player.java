@@ -9,17 +9,22 @@ import java.util.List;
 class Player extends Mobs implements Serializable {
 
     private List<Item> inventory;
+    private int numItems;
+    private int weightMax;
+    private int weightCurr;
     private List<Quest> activeQuests;
     private Mobs lastKilledEnemy;
-    private Armor equippedArmor;
+    private Equipable[] equippedItems;
     private int maxHealth;
 
-    private Player(String name, int health, int attack, int defense) {
+    private Player(String name, int health, int attack, int defense, int weightMax) {
         super(name, health, attack, defense);
         this.maxHealth = health;
         this.inventory = new ArrayList<>();
+        numItems = 0;
+        this.weightMax = weightMax;
+        weightCurr = 0;
         this.activeQuests = new ArrayList<>();
-        this.equippedArmor = null;
     }
 
     public static Player createPlayer(String name) {
@@ -27,12 +32,17 @@ class Player extends Mobs implements Serializable {
         int health = generateRandomStat(100, 150);
         int attack = generateRandomStat(10, 20);
         int defense = generateRandomStat(10, 20);
+        int weightMax = generateRandomStat(100, 150);
 
-        return new Player(name, health, attack, defense);
+        return new Player(name, health, attack, defense, weightMax);
     }
     private static int generateRandomStat(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
+    }
+
+    public void increaseHP(int x){
+        maxHealth += x;
     }
 
     public void setLastKilledEnemy(Mobs enemy) {
@@ -43,8 +53,15 @@ class Player extends Mobs implements Serializable {
         return lastKilledEnemy;
     }
 
-    public void addToInventory(Item item) {
-        inventory.add(item);
+    public boolean addToInventory(Item item) {
+        if((weightCurr + item.getSize()) > weightMax){
+            return false;
+        }else{
+            inventory.add(item);
+            numItems++;
+            weightCurr += item.getSize();
+            return true;
+        }
     }
 
     public List<Item> getInventory(){return inventory;}
@@ -69,39 +86,50 @@ class Player extends Mobs implements Serializable {
         return !activeQuests.isEmpty();
     }
 
-    public void checkActiveQuests() {
-        if (activeQuests.isEmpty()) {
-            System.out.println("You have no active quests.");
-        } else {
-            System.out.println("Active quests:");
-            for (Quest quest : activeQuests) {
-                System.out.println(quest.getName() + ": " + quest.getDescription());
-            }
-        }
-    }
-
     //armor stuff
-    public void equipArmor(Armor armor) {
-        if (equippedArmor != null) {
-            unequipArmor();
+    public void equipItem(Equipable equip) {
+        switch(equip.getSlot()) {
+            case HAND:
+                if(equippedItems[0] == null) {
+                    equippedItems[0] = equip;
+                }
+                break;
+            case ARMS:
+                if(equippedItems[1] == null) {
+                    equippedItems[1] = equip;
+                }
+                break;
+            case LEGS:
+                if(equippedItems[2] == null) {
+                    equippedItems[2] = equip;
+                }
+                break;
+            case CHEST:
+                if(equippedItems[3] == null) {
+                    equippedItems[3] = equip;
+                }
+                break;
+            case HEAD:
+                if(equippedItems[4] == null) {
+                    equippedItems[4] = equip;
+                }
+                break;
         }
-        equippedArmor = armor;
-        System.out.println("Equipped " + armor.getName() + " armor.");
+        increaseHP(equip.getMods()[0]);
+        increaseAttack(equip.getMods()[1]);
+        increaseDefense(equip.getMods()[2]);
     }
 
-    public void unequipArmor() {
-        if (equippedArmor != null) {
-            System.out.println("Unequipped " + equippedArmor.getName() + " armor.");
-            equippedArmor = null;
-        }
+    public void unequipArmor(Equipable equip) {
+
     }
 
-    public Armor getEquippedArmor() {
-        return equippedArmor;
+    public Equipable[] getEquippedArmor() {
+        return equippedItems;
     }
 
     public boolean hasEquippedArmor() {
-        return equippedArmor != null;
+        return equippedItems != null;
     }
 
     //talk
