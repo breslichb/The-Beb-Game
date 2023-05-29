@@ -24,10 +24,12 @@ class Mobs implements Serializable {
     public int getAttack() {
         return attack;
     }
+    public void increaseAttack(int x){attack += x;}
 
     public int getDefense() {
         return defense;
     }
+    public void increaseDefense(int x){defense += x;}
 
     public void takeDamage(int damage) {
         int remainingHealth = Math.max(health - damage, 0);

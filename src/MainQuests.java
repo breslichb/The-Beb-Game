@@ -14,16 +14,9 @@ public class MainQuests {
     MainQuests(Player p) {
         questDisplay.setEditable(false);
         questLabel.setText(p.getName() + "'s Quests");
-
-        Quest[] quests = p.getActiveQuests();
-
-        for (Quest q : quests) {
-            questDisplay.setText(questDisplay.getText() + " - " + q.getName() + "\n" + q.getDescription() + "\n");
-        }
     }
     public void updateQuestDisplay(Player p) {
         questDisplay.setText("");
-
         Quest[] quests = p.getActiveQuests();
         for (Quest q : quests) {
             questDisplay.setText(questDisplay.getText() + " - " + q.getName() + "\n" + q.getDescription() + "\n");

@@ -47,7 +47,7 @@ public class Main {
         con = c;
 
         //Inventory screen
-        MainInventory inventory = new MainInventory(player, this);
+        MainInventory inventory = new MainInventory(player);
         inventory.createFrame();
 
         //Quest screen
@@ -177,9 +177,13 @@ public class Main {
                         for (Quest q : quests) {
                             q.incrementKillCount();
                             if (q.isCompleted()) {
-                                playArea.setText(playArea.getText() + "====================\n" + "You completed a quest! Your reward: " + q.getReward().getName() + "\n");
-                                player.addToInventory(q.getReward());
-                                player.completeQuest(q);
+                                if(player.addToInventory(q.getReward())){
+                                    player.completeQuest(q);
+                                    playArea.setText(playArea.getText() + "====================\n" + "You completed a quest! Your reward: " + q.getReward().getName() + "\n");
+                                }else{
+                                    playArea.setText(playArea.getText() + "====================\n" + "You completed a quest!\n"
+                                                    + "But, you are carrying too much. You can receive the reward after your next kill if you have enough room.\n");
+                                }
                             }
                         }
 

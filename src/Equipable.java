@@ -71,21 +71,4 @@ public class Equipable extends Item {
             //discard
         }
     }
-
-    /***
-     * Method to call when the Player tries to equip an item.
-     * @return true if the item will equip, false if the item cannot be equipped
-     */
-    public boolean equip(){
-        //code will come later when things are more fleshed out
-        return true;
-    }
-    /***
-     * Method to call when the Player tries to unequip an item.
-     * @return true if the item will equip, false if the item cannot be equipped
-     */
-    public boolean unequip(){
-        //code will come later when things are more fleshed out
-        return true;
-    }
 }
