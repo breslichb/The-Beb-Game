@@ -30,12 +30,14 @@ public class Consumable extends Item {
 
     /***
      * Method to call when the player uses the Consumable. Will reduce uses by 1.
+     * @return whether or not we have uses left.
      */
-    public void use(){
+    public boolean use(){
         uses--;
         if(uses<=0){
-            //discard
+            return false;
         }
+        return true;
     }
 
     /***

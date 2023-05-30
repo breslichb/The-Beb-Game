@@ -65,6 +65,10 @@ class Player extends Mobs implements Serializable {
         }
     }
 
+    public boolean removeFromInventory(Item item) {
+        return inventory.remove(item);
+    }
+
     public List<Item> getInventory(){return inventory;}
 
     public Quest[] getActiveQuests() {
