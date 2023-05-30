@@ -43,10 +43,13 @@ class Mobs implements Serializable {
     }
 
     private int calculateDamage(Mobs enemy) {
-        // Calculate damage taking into account player's attack and enemy's defense
+        int minDamage = 5;
+        int maxDamage = 15;
         int attackDamage = getAttack() - enemy.getDefense();
-        return Math.max(0, attackDamage);
+        int damageDealt = Math.max(minDamage, Math.min(maxDamage, attackDamage));
+        return damageDealt;
     }
+
 
     //death method for player class
     public boolean isDead() {
