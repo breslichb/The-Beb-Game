@@ -55,25 +55,48 @@ public class MainInventory {
                 if (selectedItem instanceof Equipable) {
                     p.equipItem((Equipable) selectedItem);
                 } else if (selectedItem instanceof Consumable) {
-
+                    if (!((Consumable) selectedItem).use()) {
+                        p.removeFromInventory(selectedItem);
+                    }
                 }
+            }
+        });
+        dropButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                p.removeFromInventory(selectedItem);
+                if (selectedLoc >= inv.size()) {
+                    if (inv.size() > 0) {
+                        selectedLoc = inv.size() - 1;
+                        selectedItem = inv.get(selectedLoc);
+                    } else {
+                        selectedLoc = 0;
+                        selectedItem = null;
+                    }
+                }
+                updateSelectedItem();
+                updateInventoryDisplay(p);
             }
         });
     }
 
     public void updateSelectedItem() {
-        selectedItemField.setText(selectedItem.getName() + " Selected.");
+        selectedItemField.setText(selectedItem != null ? selectedItem.getName() : "Nothing" + " Selected.");
     }
 
     public void updateInventoryDisplay(Player p) {
         inventoryDisplay.setText("");
         List<Item> inv = p.getInventory();
-        selectedItem = inv.get(0);
+        if (inv.size() > 0) {
+            selectedItem = inv.get(0);
+        } else {
+            selectedItem = null;
+        }
         selectedLoc = 0;
         for (Item i : inv) {
             inventoryDisplay.setText(inventoryDisplay.getText() + " - " + i.getName() + "\n");
         }
-        selectedItemField.setText(selectedItem.getName() + " Selected.");
+        updateSelectedItem();
     }
 
     public void createFrame() {
