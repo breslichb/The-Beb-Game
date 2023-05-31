@@ -1,6 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 class NPC implements Serializable {
@@ -12,7 +10,7 @@ class NPC implements Serializable {
         this.availableQuest = quest;
     }
 
-    public static NPC createNPC(String name){
+    public static NPC createNPC(String name, int level){
         return new NPC(name, Quest.createQuest());
     }
 
