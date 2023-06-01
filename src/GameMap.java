@@ -10,6 +10,7 @@ import static java.lang.Math.max;
 /**
  * The map class.
  * This class handles the 2-D representation of the game world, as well as any vertical links between rooms.
+ * @author Benjamin Breslich
  */
 
 public class GameMap implements Serializable {
@@ -241,7 +242,12 @@ public class GameMap implements Serializable {
     }
 
     /**
-     * Gets the adjacent coordinates in every direction for a given coordinate pair.
+     * Gets the adjacent coordinates in each cardinal direction for a given coordinate pair.
+     * @param x The origin x-coord.
+     * @param y The origin y-coord.
+     * @param adjacenciesList The list to store the adjacencies in.
+     * @param coordsList A list of coordinates we want to ignore.
+     * @return
      */
     public ArrayList<int[]> getAdjacencies(int x, int y, ArrayList<int[]> adjacenciesList , ArrayList<int[]> coordsList) {
         ArrayList<int[]> retList = new ArrayList<int[]>();

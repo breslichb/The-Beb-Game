@@ -1,4 +1,8 @@
 public class DescendingRoom extends Room{
+    /**
+     * DescendingRoom constructor, takes in the parent GameMap object.
+     * @param map The GameMap this room resides in.
+     */
     public DescendingRoom(GameMap map) {
         super(map);
     }
