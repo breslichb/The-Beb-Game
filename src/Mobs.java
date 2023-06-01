@@ -61,6 +61,7 @@ class Mobs implements Serializable {
      * @param x The value to increase attack by.
      */
     public void increaseAttack(int x){attack += x;}
+    public void decreaseAttack(int x){attack -= x;}
 
     /**
      * Gets a mob's defense value.
@@ -75,6 +76,7 @@ class Mobs implements Serializable {
      * @param x The value to increase defense by.
      */
     public void increaseDefense(int x){defense += x;}
+    public void decreaseDefense(int x){defense -= x;}
 
     /**
      * Makes a mob take damage.
@@ -84,6 +86,8 @@ class Mobs implements Serializable {
         int remainingHealth = Math.max(health - damage, 0);
         health = remainingHealth;
     }
+
+    public void heal(int heal){health += heal;}
 
     /**
      * Makes a mob attack an enemy.

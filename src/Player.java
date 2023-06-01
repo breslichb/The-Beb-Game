@@ -1,3 +1,5 @@
+import jdk.jshell.execution.JdiExecutionControl;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -87,6 +89,11 @@ class Player extends Mobs implements Serializable {
      */
     public void increaseHP(int x){
         maxHealth += x;
+        heal(x);
+    }
+    public void decreaseHP(int x){
+        maxHealth -= x;
+        takeDamage(x);
     }
 
     /**
@@ -169,29 +176,45 @@ class Player extends Mobs implements Serializable {
             case HAND:
                 if(equippedItems[0] == null) {
                     equippedItems[0] = equip;
+                }else{
+                    unequipItem(equippedItems[0]);
+                    equippedItems[0] = equip;
                 }
                 break;
             case ARMS:
                 if(equippedItems[1] == null) {
+                    equippedItems[1] = equip;
+                }else{
+                    unequipItem(equippedItems[1]);
                     equippedItems[1] = equip;
                 }
                 break;
             case LEGS:
                 if(equippedItems[2] == null) {
                     equippedItems[2] = equip;
+                }else{
+                    unequipItem(equippedItems[2]);
+                    equippedItems[2] = equip;
                 }
                 break;
             case CHEST:
                 if(equippedItems[3] == null) {
+                    equippedItems[3] = equip;
+                }else{
+                    unequipItem(equippedItems[3]);
                     equippedItems[3] = equip;
                 }
                 break;
             case HEAD:
                 if(equippedItems[4] == null) {
                     equippedItems[4] = equip;
+                }else{
+                    unequipItem(equippedItems[4]);
+                    equippedItems[4] = equip;
                 }
                 break;
         }
+        equip.isEquipped = true;
         increaseHP(equip.getMods()[0]);
         increaseAttack(equip.getMods()[1]);
         increaseDefense(equip.getMods()[2]);
@@ -201,8 +224,28 @@ class Player extends Mobs implements Serializable {
      * Handles unequipping armor.
      * @param equip The armor to unequip.
      */
-    public void unequipArmor(Equipable equip) {
-
+    public void unequipItem(Equipable equip) {
+        switch(equip.getSlot()){
+            case HAND:
+                equippedItems[0] = null;
+                break;
+            case ARMS:
+                equippedItems[1] = null;
+                break;
+            case LEGS:
+                equippedItems[2] = null;
+                break;
+            case CHEST:
+                equippedItems[3] = null;
+                break;
+            case HEAD:
+                equippedItems[4] = null;
+                break;
+        }
+        equip.isEquipped = false;
+        decreaseHP(equip.getMods()[0]);
+        decreaseAttack(equip.getMods()[1]);
+        decreaseDefense(equip.getMods()[2]);
     }
 
     /**
@@ -221,6 +264,27 @@ class Player extends Mobs implements Serializable {
         npc.giveQuest(this);
     }
 
+    public void use(Consumable item){
+        if(item instanceof Food){
+            heal(item.getEffect());
+        }else if(item instanceof Potion){
+            switch(item.getName()){
+                case "HP Potion":
+                    heal(item.getEffect());
+                    break;
+                case "STR Potion":
+                    increaseAttack(item.getEffect());
+                    break;
+                case "DEF Potion":
+                    increaseDefense(item.getEffect());
+                    break;
+            }
+        }
+        if(!item.use()){
+            removeFromInventory(item);
+        }
+    }
+  
     /**
      * Gets the player's max health.
      * @return The max health.
