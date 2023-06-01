@@ -35,7 +35,7 @@ public class GameMap implements Serializable {
     public enum Direction{NORTH, EAST, WEST, SOUTH}
 
     /** The cap on random rooms, so we don't generate a million for large areas. */
-    private static final double RANDOM_ROOM_PERCENTAGE = 0.75;
+    private static final double RANDOM_ROOM_PERCENTAGE = 0.6;
 
     /**
      * Generates our game map.
@@ -54,7 +54,7 @@ public class GameMap implements Serializable {
         // Make our starting room then run room generation
         addRoom(startX, startY, new StartingRoom(this));
         playerLocation = new int[]{startY, startX};
-        generateRooms(startX, startY, numQuests, numEnemies);
+        generateRooms(startX, startY, numQuests, numEnemies, xdim, ydim);
         this.player = player;
     }
 
@@ -71,11 +71,11 @@ public class GameMap implements Serializable {
     public void regenerate(){
         int startX = playerLocation[1];
         int startY = playerLocation[0];
-        rooms = new Room[rooms.length][rooms[0].length];
+        rooms = new Room[rooms.length + 1][rooms[0].length + 1];
         roomsList = new ArrayList<Room>();
 
         addRoom(startX, startY, new StartingRoom(this));
-        generateRooms(startX, startY, 3, 3);
+        generateRooms(startX, startY, 3, 3, rooms.length, rooms[0].length);
     }
 
     /**
@@ -177,13 +177,13 @@ public class GameMap implements Serializable {
      * @param numQuests The number of quests to generate
      * @param numEnemies The number of enemy-containing rooms to generate (excluding possible quest enemies)
      */
-    private void generateRooms(int startX, int startY, int numQuests, int numEnemies){
+    private void generateRooms(int startX, int startY, int numQuests, int numEnemies, int xdim, int ydim){
         // Init random for later
         Random r = new Random();
 
         // Get our room totals. If we don't have enough rooms to actually generate all our quests/enemies,
         // we just abort early, so we don't have to worry about randomRooms being negative.
-        int possibleRooms = startX * startY - 1;
+        int possibleRooms = xdim * ydim - 1;
         int randomRooms = possibleRooms - numQuests - numEnemies;
         if(randomRooms > 0) {
             randomRooms = (int) (randomRooms * RANDOM_ROOM_PERCENTAGE);
