@@ -20,6 +20,8 @@ public class Equipable extends Item {
 
     /**how many times the Equipable can be used/hit*/
     private int durability;
+    /**if the armor is equipped or not*/
+    public boolean isEquipped = false;
 
     /***
      * The Constructor for an Equipable object.

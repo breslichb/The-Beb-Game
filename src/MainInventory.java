@@ -43,7 +43,7 @@ public class MainInventory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<Item> inv = p.getInventory();
-                if (selectedLoc < inv.size()-1) {
+                if (selectedLoc < inv.size() - 1) {
                     selectedLoc++;
                     selectedItem = inv.get(selectedLoc);
                     updateSelectedItem();
@@ -101,6 +101,21 @@ public class MainInventory {
         selectedLoc = 0;
         for (Item i : inv) {
             inventoryDisplay.setText(inventoryDisplay.getText() + " - " + i.getName() + "\n");
+            if (i instanceof Consumable) {
+                inventoryDisplay.setText(inventoryDisplay.getText() + "Effect: " + ((Consumable) i).getEffect() + "\n");
+            } else if (i instanceof Equipable) {
+                int[] mods = ((Equipable) i).getMods();
+                if (mods[0] != 0) {
+                    inventoryDisplay.setText(inventoryDisplay.getText() + "HP Up " + mods[0] + ". ");
+                }
+                if (mods[1] != 0) {
+                    inventoryDisplay.setText(inventoryDisplay.getText() + "STR Up " + mods[1] + ". ");
+                }
+                if (mods[2] != 0) {
+                    inventoryDisplay.setText(inventoryDisplay.getText() + "DEF Up " + mods[2] + ". ");
+                }
+                inventoryDisplay.setText(inventoryDisplay.getText() + "\n");
+            }
         }
         updateSelectedItem();
     }
@@ -156,7 +171,7 @@ public class MainInventory {
         dropButton.setText("Drop");
         inventoryPanel.add(dropButton, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         actionLabel = new JLabel();
-        actionLabel.setText("");
+        actionLabel.setText("Use, Equip, or Drop your items!");
         inventoryPanel.add(actionLabel, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
