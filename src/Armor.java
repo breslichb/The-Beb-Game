@@ -90,7 +90,7 @@ public class Armor extends Equipable {
                 break;
         }
 
-        int[] mods = new int[]{HP, STR, DEF, rand.nextInt(10)+1};
+        int[] mods = new int[]{HP, STR, DEF};
 
         return new Armor(name, "An armor piece.", size, slot, mods, durability);
     }

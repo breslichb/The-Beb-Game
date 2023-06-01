@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -153,6 +154,8 @@ public class Main {
                 playArea.setText(playArea.getText() + "====================\n");
                 playArea.setText(playArea.getText() + currentRoom.interact() + "\n");
                 updatePlayerStats();
+                inventory.updateInventoryDisplay(player);
+                quests.updateQuestDisplay(player);
             }
         });
         attackButton.addActionListener(new ActionListener() {
@@ -172,14 +175,16 @@ public class Main {
                         playArea.setText(playArea.getText() + player.getName() + " killed " + enemy.getName() + "!\n");
                         currentRoom.removeEnemy(enemy);
 
-                        Quest[] quests = player.getActiveQuests();
+                        Quest[] quest = player.getActiveQuests();
 
-                        for (Quest q : quests) {
+                        for (Quest q : quest) {
                             q.incrementKillCount();
                             if (q.isCompleted()) {
                                 if (player.addToInventory(q.getReward())) {
                                     player.completeQuest(q);
                                     playArea.setText(playArea.getText() + "====================\n" + "You completed a quest! Your reward: " + q.getReward().getName() + "\n");
+                                    inventory.updateInventoryDisplay(player);
+                                    quests.updateQuestDisplay(player);
                                 } else {
                                     playArea.setText(playArea.getText() + "====================\n" + "You completed a quest!\n"
                                             + "But, you are carrying too much. You can receive the reward after your next kill if you have enough room.\n");
@@ -246,13 +251,27 @@ public class Main {
 
     public void updatePlayerStats() {
         int[] pos = map.getPlayerLocation();
+        Equipable[] eq = player.getEquippedArmor();
 
         playerStats.setText(player.getName()
-                + "\nHealth  : " + player.getHealth() + " / " + player.getMaxHealth()
-                + "\nStrength: " + player.getAttack()
-                + "\nDefense : " + player.getDefense()
-                + "\nCurrent Location: (" + pos[1] + ", " + pos[0] + ")\n"
+                + "\n Health  : " + player.getHealth() + " / " + player.getMaxHealth()
+                + "\n Strength: " + player.getAttack()
+                + "\n Defense : " + player.getDefense()
+                + "\n"
+                + "\n EQUIPPED ITEMS  [HP, STR, DEF]"
+                + "\n Head:       " + (eq[4] != null ? eq[4].getName() + " " + Arrays.toString(eq[4].getMods()) : "___")
+                + "\n Chest:      " + (eq[3] != null ? eq[3].getName() + " " + Arrays.toString(eq[3].getMods()) : "___")
+                + "\n Arms:       " + (eq[1] != null ? eq[1].getName() + " " + Arrays.toString(eq[1].getMods()) : "___")
+                + "\n Legs:       " + (eq[2] != null ? eq[2].getName() + " " + Arrays.toString(eq[2].getMods()) : "___")
+                + "\n Weapon: " + (eq[0] != null ? eq[0].getName() + " " + Arrays.toString(eq[0].getMods()) : "___")
+                + "\n"
+                + "\n Map\n" + " "
                 + map.toString()
+                + "\n Legend:"
+                + "\n * - Room"
+                + "\n / - Player"
+                + "\n ! - NPC Room"
+                + "\n ^ - Descent Room"
         );
     }
 

@@ -37,7 +37,7 @@ public class Weapon extends Equipable {
         Random rand = new Random();
         String[] types = new String[]{"Sword", "Axe", "Mace", "Hammer"};
         int typeNum = rand.nextInt(4);
-        int[] mods = new int[]{0, rand.nextInt(5)+(typeNum+1), 0, (rand.nextInt(10)+1)-typeNum};
+        int[] mods = new int[]{0, rand.nextInt(5)+(typeNum+1), 0};
         int size = rand.nextInt(5)+(typeNum+1);
         int durability = rand.nextInt(10)+(typeNum+1);
 
