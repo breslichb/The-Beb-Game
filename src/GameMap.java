@@ -37,9 +37,6 @@ public class GameMap implements Serializable {
     /** The cap on random rooms, so we don't generate a million for large areas. */
     private static final double RANDOM_ROOM_PERCENTAGE = 0.75;
 
-    /** Lets our floors get bigger as we go lower. */
-    private static final int NEW_FLOOR_SIZE_FACTOR = 2;
-
     /**
      * Generates our game map.
      * @param xdim Size x-wise.
@@ -74,7 +71,7 @@ public class GameMap implements Serializable {
     public void regenerate(){
         int startX = playerLocation[1];
         int startY = playerLocation[0];
-        rooms = new Room[rooms.length + NEW_FLOOR_SIZE_FACTOR][rooms[0].length + NEW_FLOOR_SIZE_FACTOR];
+        rooms = new Room[rooms.length][rooms[0].length];
         roomsList = new ArrayList<Room>();
 
         addRoom(startX, startY, new StartingRoom(this));
