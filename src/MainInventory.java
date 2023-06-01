@@ -53,6 +53,7 @@ public class MainInventory {
         useButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                List<Item> inv = p.getInventory();
                 if (selectedItem instanceof Equipable) {
                     p.equipItem((Equipable) selectedItem);
                     actionLabel.setText("Equipped " + selectedItem.getName() + "!");
@@ -61,8 +62,19 @@ public class MainInventory {
                     p.use((Consumable) selectedItem);
                     updateSelectedItem();
                     updateInventoryDisplay(p);
+                    if (selectedLoc >= inv.size()) {
+                        if (inv.size() > 0) {
+                            selectedLoc = inv.size() - 1;
+                            selectedItem = inv.get(selectedLoc);
+                        } else {
+                            selectedLoc = 0;
+                            selectedItem = null;
+                        }
+                    }
                 }
                 m.updatePlayerStats();
+                updateInventoryDisplay(p);
+                updateSelectedItem();
             }
         });
         dropButton.addActionListener(new ActionListener() {
@@ -100,10 +112,14 @@ public class MainInventory {
         }
         selectedLoc = 0;
         for (Item i : inv) {
-            inventoryDisplay.setText(inventoryDisplay.getText() + " - " + i.getName() + "\n");
             if (i instanceof Consumable) {
-                inventoryDisplay.setText(inventoryDisplay.getText() + "Effect: " + ((Consumable) i).getEffect() + "\n");
+                inventoryDisplay.setText(inventoryDisplay.getText() + i.getName() + " - Effect: " + ((Consumable) i).getEffect() + ". Uses: " + ((Consumable) i).getUses() + "\n");
             } else if (i instanceof Equipable) {
+                if (((Equipable) i).isEquipped) {
+                    inventoryDisplay.setText(inventoryDisplay.getText() + "*" + i.getName() + "* - ");
+                } else {
+                    inventoryDisplay.setText(inventoryDisplay.getText() + i.getName() + " - ");
+                }
                 int[] mods = ((Equipable) i).getMods();
                 if (mods[0] != 0) {
                     inventoryDisplay.setText(inventoryDisplay.getText() + "HP Up " + mods[0] + ". ");
