@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * This class is a JUnit test class for map generation. It makes sure that the map generates sensibly and that
  * nothing is segmented off/inaccessible.
+ * @author Benjamin Breslich
  */
 public class TestMapGen {
     /** Test map */

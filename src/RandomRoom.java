@@ -3,8 +3,13 @@ import java.util.Random;
 /**
  * The RandomRoom class randomly populates a room with an item and an enemy based on chance rolls.
  * Chances: 25% item & enemy, 50% enemy, 25% empty.
+ * @author Benjamin Breslich
  */
 public class RandomRoom extends Room{
+    /**
+     * Random Room constructor.
+     * @param parent The gamemap we reside in.
+     */
     public RandomRoom(GameMap parent){
         super(parent);
         Random rand = new Random();

@@ -2,14 +2,39 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The Database Connector class
+ * Handles DB connection, save serialization, and save deserialization.
+ * @author Benjamin
+ */
 public class DBConnector {
-    private static String dburl = "jdbc:mysql://localhost:3306/bebdb";
-    private static String username = "root";
-    private static String password = "2003";
-    private static String putSerializedObjectSQL = "INSERT INTO savestates(name, gamemap) VALUES (?, ?)";
-    private static String getSerializedObjectSQLbyID = "SELECT name, gamemap FROM savestates WHERE id = ";
-    private static String getSerializedObjectSQLbyName = "SELECT gamemap FROM savestates WHERE name LIKE *?*";
+    /** Database connection URL*/
+    private static final String dburl = "jdbc:mysql://localhost:3306/bebdb";
 
+    /** Database connection user */
+    private static final String username = "root";
+
+    /** Database connection password */
+    private static final String password = "2003";
+
+    /** SQL to insert a save state into the database */
+    private static final String putSerializedObjectSQL = "INSERT INTO savestates(name, gamemap) VALUES (?, ?)";
+
+    /** SQL to get a save state from the database by save ID */
+    private static final String getSerializedObjectSQLbyID = "SELECT name, gamemap FROM savestates WHERE id = ";
+
+    /** SQL to get a save state from the database by name */
+    private static final String getSerializedObjectSQLbyName = "SELECT gamemap FROM savestates WHERE name LIKE *?*";
+
+    /** SQL to get all save states, ordered latest to earliest. */
+    private static final String getSerializedObjectSQLbyLatest = "SELECT id, gamemap FROM savestates ORDER BY id DESC";
+
+    /**
+     * Serializes an object for use in the database.
+     * @param input The object to serialize.
+     * @return A byte array containing the serialized object.
+     * @throws SQLException Thrown when serialization fails for any reason.
+     */
     private static byte[] serializeObject(Object input) throws SQLException {
         try {
             ByteArrayOutputStream byteout = new ByteArrayOutputStream();
@@ -22,6 +47,12 @@ public class DBConnector {
         }
     }
 
+    /**
+     * Deserializes a byte array containing an object. This object must be cast after deserialization.
+     * @param input The byte array to deserialize.
+     * @return The deserialized object.
+     * @throws SQLException Thrown when deserialization fails for any reason.
+     */
     private static Object deserializeObject(byte[] input) throws SQLException {
         try {
             ByteArrayInputStream bytein = new ByteArrayInputStream(input);
@@ -35,37 +66,28 @@ public class DBConnector {
         }
     }
 
-    public static GameMap getSaveStateByID(int id, Connection con) throws SQLException {
-        Statement sqlStatement = con.createStatement();
-        ResultSet results = sqlStatement.executeQuery(getSerializedObjectSQLbyID + id);
-        results.next();
-        String name = results.getString("name");
-        GameMap map = (GameMap) deserializeObject(results.getBytes("gamemap"));
-        sqlStatement.close();
-        return map;
-    }
-
-    public static ArrayList<GameMap> getSaveStateByName(String name, Connection con) throws SQLException {
-        PreparedStatement ps = con.prepareStatement(getSerializedObjectSQLbyName);
-        ps.setString(1, name);
-        ResultSet results = ps.executeQuery();
-        ArrayList<GameMap> maps = new ArrayList<>();
-        while(results.next()) {
-            GameMap map = (GameMap) deserializeObject(results.getBytes("gamemap"));
-            maps.add(map);
-        }
-        ps.close();
-        return maps;
-    }
-
+    /**
+     * Gets the last-made save.
+     * @param con The database connection.
+     * @return The retrieved save.
+     * @throws SQLException Thrown if database access fails.
+     */
     public static GameMap getLatestSaveState(Connection con) throws SQLException {
         Statement sqlStatement = con.createStatement();
-        ResultSet results = sqlStatement.executeQuery("SELECT id, gamemap FROM savestates ORDER BY id DESC");
+        ResultSet results = sqlStatement.executeQuery(getSerializedObjectSQLbyLatest);
         results.next();
         GameMap g = (GameMap) deserializeObject(results.getBytes("gamemap"));
         return g;
     }
 
+    /**
+     * Puts a savestate into the database.
+     * @param name The name of the save state (typically the player name).
+     * @param map The map to save.
+     * @param con The database connection.
+     * @return The ID that this save state has been assigned.
+     * @throws SQLException Thrown if database access or serialization fails.
+     */
     public static int putSaveState(String name, GameMap map, Connection con) throws SQLException {
         PreparedStatement ps = con.prepareStatement(putSerializedObjectSQL, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, name);
@@ -83,6 +105,10 @@ public class DBConnector {
         return serialized_id;
     }
 
+    /**
+     * Gets a database connection.
+     * @return The newly-created connection.
+     */
     public static Connection connect(){
         try{
             return DriverManager.getConnection(dburl, username, password);

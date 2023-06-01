@@ -12,6 +12,7 @@ import java.util.ArrayList;
 /**
  * This class is a test class for the Database Connection System.
  * This tests the database connection, the serialization functions, and the deserialization functions.
+ * @author Benjamin Breslich
  */
 public class TestDBConnector {
     /** Test map */
