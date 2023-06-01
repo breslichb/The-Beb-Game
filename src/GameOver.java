@@ -5,10 +5,19 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Handles the game over screen
+ * @author Elijah Johnson
+ */
 public class GameOver {
+    /** The panel */
     private JPanel gameOverPanel;
+    /** The frame */
     private JFrame g;
 
+    /**
+     * Creates the frame.
+     */
     public void createFrame() {
         g = new JFrame("Inventory");
         g.setContentPane(gameOverPanel);

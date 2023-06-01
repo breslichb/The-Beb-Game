@@ -12,6 +12,7 @@ import java.util.Random;
  * The Room class is a representation of one in-game room.
  * This stores NPCs, enemies, items, etc. that can be encountered in the room.
  * Each room has a unique ID that is incremented as more rooms are added.
+ * @author Benjamin Breslich
  */
 public abstract class Room implements Serializable {
     /** The map we reside in */
