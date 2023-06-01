@@ -44,6 +44,7 @@ class Player extends Mobs implements Serializable {
 
     public void increaseHP(int x){
         maxHealth += x;
+        heal(x);
     }
 
     public void setLastKilledEnemy(Mobs enemy) {
@@ -140,6 +141,27 @@ class Player extends Mobs implements Serializable {
     //talk
     public void talk(NPC npc) {
         npc.giveQuest(this);
+    }
+
+    public void use(Consumable item){
+        if(item instanceof Food){
+            heal(item.getEffect());
+        }else if(item instanceof Potion){
+            switch(item.getName()){
+                case "HP Potion":
+                    heal(item.getEffect());
+                    break;
+                case "STR Potion":
+                    increaseAttack(item.getEffect());
+                    break;
+                case "DEF Potion":
+                    increaseDefense(item.getEffect());
+                    break;
+            }
+        }
+        if(!item.use()){
+            removeFromInventory(item);
+        }
     }
 
     // the health ratio

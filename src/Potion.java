@@ -11,26 +11,15 @@ import java.util.Random;
  */
 public class Potion extends Consumable{
 
-    /**How long the Potion effect lasts*/
-    private int duration;
-
     /***
      * Constructor for a Potion.
-     * @param type the type of Potion, will be one of 4 stats: HP, STR, DEF, or LUCK.
+     * @param type the type of Potion, will be one of 4 stats: HP, STR, DEF.
      * @param useSize the size of the Potion as well as how many uses it has
      * @param effect the amount the corresponding stat will increase/be restored
-     * @param duration how long the effect will last - HP Potions will have unlimited effect
      */
-    public Potion(String type, int useSize, int effect, int duration){
+    public Potion(String type, int useSize, int effect){
         super(type+" Potion", "A Magic Potion that will increase/restore your "+type+" Stat.", useSize, useSize, effect);
-        this.duration=duration;
     }
-
-    /***
-     * Getter method to retrieve how long the Potion effect lasts
-     * @return how long the effect lasts
-     */
-    public int getDuration(){return duration;}
 
     /**
      * Creates a randomly generated potion.
@@ -38,17 +27,11 @@ public class Potion extends Consumable{
      */
     public static Potion createPotion(){
         Random rand = new Random();
-        String[] type = new String[]{"HP", "STR", "DEF", "LUCK"};
-        int typeNum = rand.nextInt(4);
+        String[] type = new String[]{"HP", "STR", "DEF"};
+        int typeNum = rand.nextInt(3);
         int useSize = rand.nextInt(3)+1;
         int effect = rand.nextInt(9)+2;
-        int duration;
-        if(typeNum == 0){
-            duration=0;
-        }else{
-            duration = rand.nextInt(5)+1;
-        }
 
-        return new Potion(type[typeNum], useSize, effect, duration);
+        return new Potion(type[typeNum], useSize, effect);
     }
 }

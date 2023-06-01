@@ -19,19 +19,19 @@ public class MainInventory {
     private JButton useButton;
     private JButton dropButton;
     private JTextField selectedItemField;
+    private JLabel actionLabel;
     private Item selectedItem;
     private int selectedLoc;
     private JFrame i;
 
-    MainInventory(Player p) {
+    MainInventory(Player p, Main m) {
         inventoryDisplay.setEditable(false);
         selectedItemField.setEditable(false);
         inventoryLabel.setText(p.getName() + "'s Inventory");
-        List<Item> inv = p.getInventory();
-        int size = inv.size();
         upButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                List<Item> inv = p.getInventory();
                 if (selectedLoc > 0) {
                     selectedLoc--;
                     selectedItem = inv.get(selectedLoc);
@@ -42,7 +42,8 @@ public class MainInventory {
         downButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLoc < size) {
+                List<Item> inv = p.getInventory();
+                if (selectedLoc < inv.size()-1) {
                     selectedLoc++;
                     selectedItem = inv.get(selectedLoc);
                     updateSelectedItem();
@@ -54,17 +55,22 @@ public class MainInventory {
             public void actionPerformed(ActionEvent e) {
                 if (selectedItem instanceof Equipable) {
                     p.equipItem((Equipable) selectedItem);
+                    actionLabel.setText("Equipped " + selectedItem.getName() + "!");
                 } else if (selectedItem instanceof Consumable) {
-                    if (!((Consumable) selectedItem).use()) {
-                        p.removeFromInventory(selectedItem);
-                    }
+                    actionLabel.setText("Used " + selectedItem.getName() + "!");
+                    p.use((Consumable) selectedItem);
+                    updateSelectedItem();
+                    updateInventoryDisplay(p);
                 }
+                m.updatePlayerStats();
             }
         });
         dropButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                actionLabel.setText("Dropped " + selectedItem.getName() + ". It is gone forever!");
                 p.removeFromInventory(selectedItem);
+                List<Item> inv = p.getInventory();
                 if (selectedLoc >= inv.size()) {
                     if (inv.size() > 0) {
                         selectedLoc = inv.size() - 1;
@@ -127,7 +133,7 @@ public class MainInventory {
      */
     private void $$$setupUI$$$() {
         inventoryPanel = new JPanel();
-        inventoryPanel.setLayout(new GridLayoutManager(5, 4, new Insets(10, 10, 10, 10), -1, -1));
+        inventoryPanel.setLayout(new GridLayoutManager(6, 4, new Insets(10, 10, 10, 10), -1, -1));
         inventoryScroll = new JScrollPane();
         inventoryPanel.add(inventoryScroll, new GridConstraints(1, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(200, 300), null, 0, false));
         inventoryDisplay = new JTextArea();
@@ -137,18 +143,21 @@ public class MainInventory {
         inventoryPanel.add(inventoryLabel, new GridConstraints(0, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         upButton = new JButton();
         upButton.setText("^");
-        inventoryPanel.add(upButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.add(upButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         useButton = new JButton();
         useButton.setText("Use/Equip");
-        inventoryPanel.add(useButton, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.add(useButton, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         selectedItemField = new JTextField();
         inventoryPanel.add(selectedItemField, new GridConstraints(2, 0, 1, 4, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         downButton = new JButton();
         downButton.setText("v");
-        inventoryPanel.add(downButton, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.add(downButton, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         dropButton = new JButton();
         dropButton.setText("Drop");
-        inventoryPanel.add(dropButton, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        inventoryPanel.add(dropButton, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        actionLabel = new JLabel();
+        actionLabel.setText("");
+        inventoryPanel.add(actionLabel, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

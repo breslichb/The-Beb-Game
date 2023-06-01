@@ -36,6 +36,8 @@ class Mobs implements Serializable {
         health = remainingHealth;
     }
 
+    public void heal(int heal){health += heal;}
+
     public int attack(Mobs enemy) {
         int damageDealt = calculateDamage(enemy);
         enemy.takeDamage(damageDealt);
