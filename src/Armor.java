@@ -62,7 +62,8 @@ public class Armor extends Equipable {
                 DEF = rand.nextInt(5)+1;
                 size = rand.nextInt(6)+5;
                 durability = rand.nextInt(6)+5;
-                name = "Helmet";
+             //   name = "Helmet";
+                name = generateRandomHelmets();
                 break;
             case 2:
                 slot = Equipable.Slot.CHEST;
@@ -70,7 +71,8 @@ public class Armor extends Equipable {
                 DEF = rand.nextInt(10)+1;
                 size = rand.nextInt(11)+10;
                 durability = rand.nextInt(11)+10;
-                name = "Chestplate";
+              //  name = "Chestplate";
+                name = generateRandomChestplates();
                 break;
             case 3:
                 slot = Equipable.Slot.LEGS;
@@ -78,7 +80,8 @@ public class Armor extends Equipable {
                 DEF = rand.nextInt(3)+1;
                 size = rand.nextInt(4)+3;
                 durability = rand.nextInt(4)+3;
-                name = "Boots";
+             //   name = "Boots";
+                name = generateRandomBoots();
                 break;
             case 4:
                 slot = Equipable.Slot.ARMS;
@@ -86,12 +89,56 @@ public class Armor extends Equipable {
                 DEF = rand.nextInt(5)+1;
                 size = rand.nextInt(4)+3;
                 durability = rand.nextInt(4)+3;
-                name = "Gauntlets";
+               // name = "Gauntlets";
+                name = generateRandomGauntlets();
                 break;
         }
 
         int[] mods = new int[]{HP, STR, DEF};
 
         return new Armor(name, "An armor piece.", size, slot, mods, durability);
+    }
+    private static String generateRandomHelmets() {
+        String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
+        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] types = {"Helmet", "Bascinet ", "Hat"};
+        Random rand = new Random();
+        String adjective = descpt[rand.nextInt(descpt.length)];
+        String material = materials[rand.nextInt(materials.length)];
+        String type = types[rand.nextInt(types.length)];
+        return adjective + " " + material + " " + type;
+    }
+
+    private static String generateRandomChestplates() {
+        String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
+        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] types = {"Chestplate", "Armor", "Aegis"};
+        Random rand = new Random();
+        String adjective = descpt[rand.nextInt(descpt.length)];
+        String material = materials[rand.nextInt(materials.length)];
+        String type = types[rand.nextInt(types.length)];
+        return adjective + " " + material + " " + type;
+    }
+
+    private static String generateRandomBoots() {
+        String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
+        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] types = {"Boots", "Sabaton ", "Sandal"};
+        Random rand = new Random();
+        String adjective = descpt[rand.nextInt(descpt.length)];
+        String material = materials[rand.nextInt(materials.length)];
+        String type = types[rand.nextInt(types.length)];
+        return adjective + " " + material + " " + type;
+    }
+
+    private static String generateRandomGauntlets() {
+        String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
+        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] types = {"Gauntlets", "Gloves", "Mitten"};
+        Random rand = new Random();
+        String adjective = descpt[rand.nextInt(descpt.length)];
+        String material = materials[rand.nextInt(materials.length)];
+        String type = types[rand.nextInt(types.length)];
+        return adjective + " " + material + " " + type;
     }
 }

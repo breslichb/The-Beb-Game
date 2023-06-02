@@ -23,7 +23,7 @@ public class NPCRoom extends Room{
      */
     private NPC generateRandomNPC() {
         Random random = new Random();
-        String[] names = {"James", "Amy", "David", "Jessica", "George", "Hana" };
+        String[] names = {"James", "Amy", "David", "Jessica", "George", "Hana", "Bob", "John", "Jane", "John", "Andrew", "Brian", "Angela", "Rebecca", "Emily", "Brian" };
         String name = names[random.nextInt(names.length)];
 
         return NPC.createNPC(name);
