@@ -7,7 +7,7 @@ import java.util.Random;
  *
  * @author Elijah Johnson
  * @version 1.0
- * @since 5.17.2023
+ * @since 6.3.2023
  */
 public class Armor extends Equipable {
     /***
@@ -17,26 +17,9 @@ public class Armor extends Equipable {
      * @param size "size" or "weight" for the Item
      * @param slot which slot the Item will equip to
      * @param mods the modifiers for the Player's stats. In order: Max HP, STR, DEF, LUCK
-     * @param durability the number of uses or hits the Item has
      */
-    public Armor(String name, String desc, int size, Slot slot, int[] mods, int durability){
-        super(name, desc, size, slot, mods, durability);
-    }
-
-    /***
-     * Method to call when the Player is hit by an enemy
-     * @param playerAvo Player's AVO stat
-     * @param enemyHit  Enemy's ACC stat + Enemy's Weapon LUCK stat
-     * @return boolean whether the enemy hit (true) or missed (false)
-     */
-    public boolean hit(int playerAvo, int enemyHit){
-        boolean hit = false;
-        int missChance = playerAvo + this.getMods()[3];      //Player AVO stat + Armor LUCK stat
-        if(enemyHit > missChance) {                          //Hits if enemyHit is greater than missChance
-            hit = true;
-            this.setDurability(this.getDurability()-1);      //reduce durability
-        }
-        return hit;
+    public Armor(String name, String desc, int size, Slot slot, int[] mods){
+        super(name, desc, size, slot, mods);
     }
 
     /**
@@ -52,7 +35,6 @@ public class Armor extends Equipable {
         int STR=0;
         int DEF=0;
         int size=0;
-        int durability=0;
         String name="";
         int slotNum = rand.nextInt(4)+1;
         switch(slotNum){
@@ -61,8 +43,6 @@ public class Armor extends Equipable {
                 STR = 0;
                 DEF = rand.nextInt(5)+1;
                 size = rand.nextInt(6)+5;
-                durability = rand.nextInt(6)+5;
-             //   name = "Helmet";
                 name = generateRandomHelmets();
                 break;
             case 2:
@@ -70,7 +50,6 @@ public class Armor extends Equipable {
                 STR = rand.nextInt(3);
                 DEF = rand.nextInt(10)+1;
                 size = rand.nextInt(11)+10;
-                durability = rand.nextInt(11)+10;
               //  name = "Chestplate";
                 name = generateRandomChestplates();
                 break;
@@ -79,8 +58,6 @@ public class Armor extends Equipable {
                 STR = 0;
                 DEF = rand.nextInt(3)+1;
                 size = rand.nextInt(4)+3;
-                durability = rand.nextInt(4)+3;
-             //   name = "Boots";
                 name = generateRandomBoots();
                 break;
             case 4:
@@ -88,16 +65,19 @@ public class Armor extends Equipable {
                 STR = rand.nextInt(5)+1;
                 DEF = rand.nextInt(5)+1;
                 size = rand.nextInt(4)+3;
-                durability = rand.nextInt(4)+3;
-               // name = "Gauntlets";
                 name = generateRandomGauntlets();
                 break;
         }
 
         int[] mods = new int[]{HP, STR, DEF};
 
-        return new Armor(name, "An armor piece.", size, slot, mods, durability);
+        return new Armor(name, "An armor piece.", size, slot, mods);
     }
+
+    /**
+     * A method to be called to generate a random name for a helmet.
+     * @return String, the name of the Helmet.
+     */
     private static String generateRandomHelmets() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
         String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
@@ -108,7 +88,10 @@ public class Armor extends Equipable {
         String type = types[rand.nextInt(types.length)];
         return adjective + " " + material + " " + type;
     }
-
+    /**
+     * A method to be called to generate a random name for a chestplate.
+     * @return String, the name of the chestplate.
+     */
     private static String generateRandomChestplates() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
         String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
@@ -119,7 +102,10 @@ public class Armor extends Equipable {
         String type = types[rand.nextInt(types.length)];
         return adjective + " " + material + " " + type;
     }
-
+    /**
+     * A method to be called to generate a random name for boots.
+     * @return String, the name of the boots.
+     */
     private static String generateRandomBoots() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
         String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
@@ -130,7 +116,10 @@ public class Armor extends Equipable {
         String type = types[rand.nextInt(types.length)];
         return adjective + " " + material + " " + type;
     }
-
+    /**
+     * A method to be called to generate a random name for gauntlets.
+     * @return String, the name of the gauntlets.
+     */
     private static String generateRandomGauntlets() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
         String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
