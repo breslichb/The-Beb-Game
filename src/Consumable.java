@@ -4,8 +4,8 @@
  * to evoke an effect.
  *
  * @author Elijah Johnson
- * @version 1.1
- * @since 5.13.2023
+ * @version 1.0
+ * @since 6.3.2023
  */
 public class Consumable extends Item {
 
@@ -30,7 +30,7 @@ public class Consumable extends Item {
 
     /***
      * Method to call when the player uses the Consumable. Will reduce uses by 1.
-     * @return whether or not we have uses left.
+     * @return boolean value, true if there are uses remaining and false if 0 uses remain
      */
     public boolean use(){
         uses--;

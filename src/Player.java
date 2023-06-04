@@ -144,6 +144,17 @@ class Player extends Mobs implements Serializable {
     public List<Item> getInventory(){return inventory;}
 
     /**
+     * Getter method that returns the maximum carry weight of the player.
+     * @return the maximum carry weight
+     */
+    public int getWeightMax(){return weightMax;}
+    /**
+     * Getter method that returns the current weight of the player's items.
+     * @return the current weight of the player's items
+     */
+    public int getWeightCurr(){return weightCurr;}
+
+    /**
      * Gets the active quests.
      * @return The active quests.
      */

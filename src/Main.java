@@ -1,7 +1,5 @@
-
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,8 +8,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
+/**
+ * The BEB Game, a rogue-like text adventure about delving deep into a dungeon
+ * until your brave adventurer falls in combat.
+ *
+ * @author Benjamin Breslich, Elijah Johnson, Bayasgalan Battogtokh
+ * @version 1.0
+ * @since 6.3.2023
+ */
 public class Main {
 
     private static JFrame f;
@@ -40,6 +45,14 @@ public class Main {
     private static Room currentRoom;
     private static Connection con;
 
+    /**
+     * The constructor for the main program.
+     * This holds all UI functionality and is used to create the UI.
+     *
+     * @param p a Player object, the user's player
+     * @param m a GameMap object, the map the Player will populate
+     * @param c a Connection object, to connect to the database
+     */
     public Main(Player p, GameMap m, Connection c) {
         //set static fields
         player = p;
@@ -126,9 +139,7 @@ public class Main {
                 }
             }
         });
-
         /* ==== Player Action Action Listeners ==== */
-
         talkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -208,7 +219,6 @@ public class Main {
                 updatePlayerStats();
             }
         });
-
         /* ==== Menu Action Listeners ==== */
         inventoryButton.addActionListener(new ActionListener() {
             @Override
@@ -242,6 +252,9 @@ public class Main {
         });
     }
 
+    /**
+     * Method to be called when the game runs. Opens the MainStartMenu UI.
+     */
     public void startGame() {
         //initializing the frame
         f = new JFrame("The BEB Game");
@@ -251,6 +264,10 @@ public class Main {
         f.setVisible(true);
     }
 
+    /**
+     * A method to be called that updates the displayed information on the
+     * playerStats JTextArea.
+     */
     public void updatePlayerStats() {
         int[] pos = map.getPlayerLocation();
         Equipable[] eq = player.getEquippedArmor();
@@ -276,7 +293,6 @@ public class Main {
                 + "\n ^ - Descent Room"
         );
     }
-
 
     /*=====MAIN METHOD=====*/
     public static void main(String[] args) {
@@ -347,7 +363,7 @@ public class Main {
         mainPanel.add(menuLabel, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         playerStats = new JTextArea();
         playerStats.setText("");
-        mainPanel.add(playerStats, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 150), null, 0, false));
+        mainPanel.add(playerStats, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 300), null, 0, false));
         playerStatLabel = new JLabel();
         playerStatLabel.setText("Player");
         mainPanel.add(playerStatLabel, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
@@ -355,7 +371,7 @@ public class Main {
         saveButton.setText("Save");
         mainPanel.add(saveButton, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 10), null, 0, false));
         playAreaScroll = new JScrollPane();
-        mainPanel.add(playAreaScroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        mainPanel.add(playAreaScroll, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(300, 300), null, 0, false));
         playArea = new JTextArea();
         playAreaScroll.setViewportView(playArea);
     }

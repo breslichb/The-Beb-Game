@@ -1,13 +1,20 @@
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+/**
+ * A class that will display the New Game screen when
+ * the user selects that option.
+ *
+ * @version 1.0
+ * @since 6.3.2023
+ * @author Elijah Johnson
+ */
 public class MainNewGame {
     private JPanel newGamePanel;
     private JTextField playerNameField;
@@ -16,8 +23,10 @@ public class MainNewGame {
     private JLabel newGameTitle;
     private static JFrame n;
 
+    /**
+     * The constructor for MainNewGame. This holds all UI functionality.
+     */
     MainNewGame() {
-
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +45,9 @@ public class MainNewGame {
         });
     }
 
+    /**
+     * A method to be called in Main that creates and displays the new game UI.
+     */
     void createFrame() {
         n = new JFrame("The BEB Game");
         n.setContentPane(new MainNewGame().newGamePanel);

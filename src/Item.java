@@ -5,7 +5,7 @@ import java.io.Serializable;
  *
  * @author Elijah Johnson
  * @version 1.0
- * @since 5.6.2023
+ * @since 6.3.2023
  */
 public class Item implements Serializable {
 

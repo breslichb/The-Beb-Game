@@ -7,7 +7,7 @@ import java.util.Random;
  *
  * @author Elijah Johnson
  * @version 1.0
- * @since 5.13.2023
+ * @since 6.3.2023
  */
 public class Food extends Consumable{
     /***
