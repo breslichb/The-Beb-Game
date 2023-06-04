@@ -211,6 +211,8 @@ public class Main {
                                 + enemy.getName() + " dealt " + damage + " damage to " + player.getName() + "!\n");
                         if (player.isDead()) {
                             f.dispose();
+                            inventory.dispose();
+                            quests.dispose();
                             GameOver gameOver = new GameOver();
                             gameOver.createFrame();
                         }

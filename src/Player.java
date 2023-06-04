@@ -134,6 +134,7 @@ class Player extends Mobs implements Serializable {
      * @return Whether the removal was successful or not.
      */
     public boolean removeFromInventory(Item item) {
+        weightCurr -= item.getSize();
         return inventory.remove(item);
     }
 
