@@ -135,7 +135,9 @@ public class Main {
                 playArea.setText(playArea.getText() + "====================\n");
                 ArrayList<NPC> npcs = currentRoom.getNPCs();
                 if (npcs.isEmpty()) {
-                    playArea.setText(playArea.getText() + "There is no one here.\n");
+                    playArea.setText(playArea.getText() + "There are no friendlies in here here.\n");
+                } else if (!currentRoom.getEnemies().isEmpty()) {
+
                 } else {
                     NPC npc = npcs.get(0);
                     if (npc.getAvailableQuest() == null) {
@@ -144,6 +146,7 @@ public class Main {
                         playArea.setText(playArea.getText() + "\"Hello, adventurer! I will reward you for completing my quest!\"\n" +
                                 "New Quest: " + npc.getAvailableQuest().getName() + "\n");
                         player.talk(npc);
+                        quests.updateQuestDisplay(player);
                     }
                 }
             }
@@ -155,7 +158,6 @@ public class Main {
                 playArea.setText(playArea.getText() + currentRoom.interact() + "\n");
                 updatePlayerStats();
                 inventory.updateInventoryDisplay(player);
-                quests.updateQuestDisplay(player);
             }
         });
         attackButton.addActionListener(new ActionListener() {
@@ -265,7 +267,7 @@ public class Main {
                 + "\n Legs:       " + (eq[2] != null ? eq[2].getName() + " " + Arrays.toString(eq[2].getMods()) : "___")
                 + "\n Weapon: " + (eq[0] != null ? eq[0].getName() + " " + Arrays.toString(eq[0].getMods()) : "___")
                 + "\n"
-                + "\n Map\n" + " "
+                + "\n Map\n"
                 + map.toString()
                 + "\n Legend:"
                 + "\n * - Room"
