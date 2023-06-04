@@ -174,7 +174,7 @@ public abstract class Room implements Serializable {
      * Gets a random description from a provided description file using RandomAccessFile
      * @return the description.
      */
-    public String getRandomDesc() {
+    private String getRandomDesc() {
         try {
             descFile = Files.readAllLines(Paths.get(descFileName));
             // Get a random position
