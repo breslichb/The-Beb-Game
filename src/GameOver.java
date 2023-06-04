@@ -22,7 +22,7 @@ public class GameOver {
      * A method to be called in Main that creates and displays the Game Over UI.
      */
     public void createFrame() {
-        g = new JFrame("Inventory");
+        g = new JFrame("GAME OVER");
         g.setContentPane(gameOverPanel);
         g.pack();
         g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
