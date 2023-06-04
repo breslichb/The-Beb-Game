@@ -6,7 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Handles the game over screen
+ * A class that will be called once the player falls to 0 HP, ending the program.
+ *
+ * @version 1.0
+ * @since 6.3.2023
  * @author Elijah Johnson
  */
 public class GameOver {
@@ -16,7 +19,7 @@ public class GameOver {
     private JFrame g;
 
     /**
-     * Creates the frame.
+     * A method to be called in Main that creates and displays the Game Over UI.
      */
     public void createFrame() {
         g = new JFrame("Inventory");
