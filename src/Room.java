@@ -74,7 +74,7 @@ public abstract class Room implements Serializable {
             }
         }
         if(enemies.size() > 0) {
-            retString += "\nThere is a " + enemies.get(0).getName() + " inside.";
+            retString += "\nThere is a hostile " + enemies.get(0).getName() + " inside.";
         }
         if(npcs.size() > 0) {
             retString += "\nYou see " + npcs.get(0).getName() + " inside.";
