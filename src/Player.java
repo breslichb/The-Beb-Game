@@ -104,8 +104,6 @@ class Player extends Mobs implements Serializable {
         this.lastKilledEnemy = enemy;
     }
 
-
-
     /**
      * Adds an item to the inventory.
      * @param item The item to add.
