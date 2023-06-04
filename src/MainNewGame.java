@@ -27,7 +27,7 @@ public class MainNewGame {
                 String name = playerNameField.getText();
                 Player player = Player.createPlayer(name);
                 //make map
-                GameMap map = new GameMap(10, 10, 1, 1, player);
+                GameMap map = new GameMap(5, 5, 1, 1, player);
                 //create main
                 Main main = new Main(player, map, con);
                 main.startGame();
