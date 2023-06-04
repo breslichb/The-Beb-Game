@@ -80,7 +80,7 @@ public class Armor extends Equipable {
      */
     private static String generateRandomHelmets() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
-        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] materials = {"Iron", "Wooden", "Bronze", "Diamond", "Golden"};
         String[] types = {"Helmet", "Bascinet ", "Hat"};
         Random rand = new Random();
         String adjective = descpt[rand.nextInt(descpt.length)];
@@ -94,7 +94,7 @@ public class Armor extends Equipable {
      */
     private static String generateRandomChestplates() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
-        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] materials = {"Iron", "Wooden", "Bronze", "Diamond", "Golden"};
         String[] types = {"Chestplate", "Armor", "Aegis"};
         Random rand = new Random();
         String adjective = descpt[rand.nextInt(descpt.length)];
@@ -108,7 +108,7 @@ public class Armor extends Equipable {
      */
     private static String generateRandomBoots() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
-        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] materials = {"Iron", "Wooden", "Bronze", "Diamond", "Golden"};
         String[] types = {"Boots", "Sabaton ", "Sandal"};
         Random rand = new Random();
         String adjective = descpt[rand.nextInt(descpt.length)];
@@ -122,7 +122,7 @@ public class Armor extends Equipable {
      */
     private static String generateRandomGauntlets() {
         String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
-        String[] materials = {"Iron", "Wood", "Bronze", "Diamond", "Gold"};
+        String[] materials = {"Iron", "Wooden", "Bronze", "Diamond", "Golden"};
         String[] types = {"Gauntlets", "Gloves", "Mitten"};
         Random rand = new Random();
         String adjective = descpt[rand.nextInt(descpt.length)];
