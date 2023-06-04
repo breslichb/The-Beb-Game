@@ -74,7 +74,7 @@ public abstract class Room implements Serializable {
             }
         }
         if(enemies.size() > 0) {
-            retString += "\nThere is a " + enemies.get(0).getName() + " inside.";
+            retString += "\nThere is a hostile " + enemies.get(0).getName() + " inside.";
         }
         if(npcs.size() > 0) {
             retString += "\nYou see " + npcs.get(0).getName() + " inside.";
@@ -174,7 +174,7 @@ public abstract class Room implements Serializable {
      * Gets a random description from a provided description file using RandomAccessFile
      * @return the description.
      */
-    public String getRandomDesc() {
+    private String getRandomDesc() {
         try {
             descFile = Files.readAllLines(Paths.get(descFileName));
             // Get a random position
