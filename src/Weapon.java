@@ -27,11 +27,20 @@ public class Weapon extends Equipable {
      */
     public static Weapon createWeapon(){
         Random rand = new Random();
+        String[] materials = new String[]{"Iron", "Wooden", "Bronze", "Diamond", "Golden"};
         String[] types = new String[]{"Sword", "Axe", "Mace", "Hammer"};
-        int typeNum = rand.nextInt(4);
-        int[] mods = new int[]{0, rand.nextInt(5)+(typeNum+1), 0};
-        int size = rand.nextInt(5)+(typeNum+1);
+        String[] descpt = {"Strong", "Shinny", "Heavy", "Durable", "Normal"};
 
-        return new Weapon(types[typeNum], "A weapon.", size, mods);
+        int materialNum = rand.nextInt(materials.length);
+        int typeNum = rand.nextInt(types.length);
+        int descriptorNum = rand.nextInt(descpt.length);
+
+        int[] mods = new int[]{0, rand.nextInt(5) + (typeNum + 1), 0};
+        int size = rand.nextInt(5) + (typeNum + 1);
+
+        String name = descpt[descriptorNum] + " " + materials[materialNum] + " " + types[typeNum];
+        String desc = "A " + descpt[descriptorNum] + ", " + materials[materialNum] + " " + types[typeNum].toLowerCase() + " weapon.";
+
+        return new Weapon(name, desc, size, mods);
     }
 }
