@@ -26,9 +26,6 @@ public class GameMap implements Serializable {
     /** An int array that stores the player's location. 2-size, made on init.*/
     private int[] playerLocation;
 
-    /** An int array that stores the exit location. */
-    private int[] exitLocation;
-
     /** An enumerator that represents the possible directions a character can move. This is used to
      * check if someone can move in a given direction. North is always a lower Y, West is always a lower X.
      */
