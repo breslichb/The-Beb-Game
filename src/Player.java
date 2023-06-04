@@ -104,13 +104,7 @@ class Player extends Mobs implements Serializable {
         this.lastKilledEnemy = enemy;
     }
 
-    /**
-     * Gets the last killed enemy.
-     * @return The last killed enemy.
-     */
-    public Mobs getLastKilledEnemy() {
-        return lastKilledEnemy;
-    }
+
 
     /**
      * Adds an item to the inventory.
