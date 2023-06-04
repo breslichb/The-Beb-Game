@@ -36,7 +36,7 @@ public class MainQuests {
         questDisplay.setText("");
         Quest[] quests = p.getActiveQuests();
         for (Quest q : quests) {
-            questDisplay.setText(questDisplay.getText() + " - " + q.getName() + "\n" + q.getDescription() + "\n");
+            questDisplay.setText(questDisplay.getText() + " - " + q.getName() + "\n" + q.getDescription() + "\n" + "Current Kills: " + q.getKillCount() + "\n");
         }
     }
 
@@ -49,6 +49,13 @@ public class MainQuests {
         q.pack();
         q.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         q.setVisible(false);
+    }
+
+    /**
+     * Method that will be called when the player dies that will dispose of the window.
+     */
+    public void dispose() {
+        q.dispose();
     }
 
     /**

@@ -169,6 +169,13 @@ public class MainInventory {
     }
 
     /**
+     * Method that will be called when the player dies that will dispose of the window.
+     */
+    public void dispose() {
+        i.dispose();
+    }
+
+    /**
      * A method to be called in main that will set the UI to be visible upon re-opening the inventory.
      */
     public void setVisible() {
