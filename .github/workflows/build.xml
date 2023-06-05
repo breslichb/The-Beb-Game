@@ -21,6 +21,7 @@
         <pathelement location = "${lib.dir}/junit-platform-commons-1.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-engine-1.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-launcher-1.8.1.jar" />
+        <pathelement location = "${lib.dir}/ant-junitlauncher-1.10.13.jar" />
         <pathelement location = "${lib.dir}/apiguardian-api-1.1.2.jar" />
         <pathelement location = "${lib.dir}/forms_rt.jar" />
         <pathelement location = "${lib.dir}/opentest4j-1.2.0.jar.jar" />
