@@ -5,6 +5,7 @@
     <property name="lib.dir"     value="../../lib"/>
     <property name="build.dir"   value="../../build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="output.dir" value="${build.dir}/output"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
     <property name="doc.dir"     value="../../doc"/>
 
@@ -63,16 +64,21 @@
     <target name="rebuild" depends="clean,build" description="rebuild application"/>
 
     <target name="run_tests" depends="compile">
-        <junit>
+        <junitlauncher>
             <classpath path="${lib.dir}">
                 <path refid="classpath.test"/>
             </classpath>
-            <formatter type="plain" usefile="false" />
-
-            <batchtest>
-                <fileset dir="${src.dir}" includes="Test*" />
-            </batchtest>
-        </junit>
+            <classpath>
+                <pathelement location="../../src/TestEntityInteractions.java"/>
+                <pathelement location="../../src/TestMapGen.java"/>
+                <pathelement location="../../src/TestInventory.java"/>
+            </classpath>
+            <testclasses outputdir="${output.dir}">
+                <fileset dir="${classes.dir}"/>
+                <listener type="legacy-brief" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>
+            </testclasses>
+        </junitlauncher>
     </target>
 
 
