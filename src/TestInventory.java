@@ -14,7 +14,7 @@ public class TestInventory {
     static void setup() {
         p = Player.createPlayer("Test Player");
         i = Armor.createArmor();
-        overweight = new Armor("Test item", "Test", 200, Equipable.Slot.CHEST, new int[4], 50); // Players have a max weight of 150 total
+        overweight = new Armor("Test item", "Test", 200, Equipable.Slot.CHEST, new int[4]); // Players have a max weight of 150 total
     }
 
     // Make sure items are equipped.
