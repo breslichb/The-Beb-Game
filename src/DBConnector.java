@@ -20,12 +20,6 @@ public class DBConnector {
     /** SQL to insert a save state into the database */
     private static final String putSerializedObjectSQL = "INSERT INTO savestates(name, gamemap) VALUES (?, ?)";
 
-    /** SQL to get a save state from the database by save ID */
-    private static final String getSerializedObjectSQLbyID = "SELECT name, gamemap FROM savestates WHERE id = ";
-
-    /** SQL to get a save state from the database by name */
-    private static final String getSerializedObjectSQLbyName = "SELECT gamemap FROM savestates WHERE name LIKE *?*";
-
     /** SQL to get all save states, ordered latest to earliest. */
     private static final String getSerializedObjectSQLbyLatest = "SELECT id, gamemap FROM savestates ORDER BY id DESC";
 
