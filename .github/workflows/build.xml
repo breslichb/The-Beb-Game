@@ -5,6 +5,7 @@
     <property name="lib.dir"     value="../../lib"/>
     <property name="build.dir"   value="../../build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="output.dir" value="${build.dir}/output"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
     <property name="doc.dir"     value="../../doc"/>
 
@@ -19,8 +20,11 @@
         <pathelement location = "${lib.dir}/junit-jupiter-params-5.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-commons-1.8.1.jar" />
         <pathelement location = "${lib.dir}/junit-platform-engine-1.8.1.jar" />
+        <pathelement location = "${lib.dir}/junit-platform-launcher-1.8.1.jar" />
+        <pathelement location = "${lib.dir}/ant-junitlauncher-1.10.13.jar" />
         <pathelement location = "${lib.dir}/apiguardian-api-1.1.2.jar" />
         <pathelement location = "${lib.dir}/forms_rt.jar" />
+        <pathelement location = "${lib.dir}/opentest4j-1.2.0.jar.jar" />
         <pathelement location = "${src.dir}" />
         <path refid = "classpath.base" />
     </path>
@@ -61,17 +65,21 @@
     <target name="rebuild" depends="clean,build" description="rebuild application"/>
 
     <target name="run_tests" depends="compile">
-        <junit>
-            <classpath>
-                <pathelement location="${lib.dir}"/>
-                <path refid="classpath.test" />
+        <junitlauncher>
+            <classpath path="${lib.dir}">
+                <path refid="classpath.test"/>
             </classpath>
-            <formatter type="plain" usefile="false" />
-
-            <batchtest>
-                <fileset dir="${src.dir}" includes="Test*" />
-            </batchtest>
-        </junit>
+            <classpath>
+                <pathelement location="../../src/TestEntityInteractions.java"/>
+                <pathelement location="../../src/TestMapGen.java"/>
+                <pathelement location="../../src/TestInventory.java"/>
+            </classpath>
+            <testclasses outputdir="${output.dir}">
+                <fileset dir="${classes.dir}"/>
+                <listener type="legacy-brief" sendSysOut="true"/>
+                <listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>
+            </testclasses>
+        </junitlauncher>
     </target>
 
 

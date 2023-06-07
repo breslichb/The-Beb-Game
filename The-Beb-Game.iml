@@ -42,5 +42,16 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="ant.junit" level="project" />
+    <orderEntry type="library" name="junit.platform.launcher" level="project" />
+    <orderEntry type="library" name="opentest4j" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ant-junitlauncher-1.10.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

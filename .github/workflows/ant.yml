@@ -22,7 +22,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Build with Ant
-      run: ant -noinput -buildfile .github/workflows/build.xml
+      run: ant -noinput -lib ../../lib -buildfile .github/workflows/build.xml
 
   test:
 
