@@ -186,7 +186,7 @@ public abstract class Room implements Serializable {
         } catch (IOException e) {
             // Default in case the IO isn't set up properly
             System.out.println("IO Error in Description Handling: " + e.toString());
-            return "This room is simple and uninteresting.";
+            return "This room is simple and uninteresting";
         }
     }
 }
