@@ -12,7 +12,7 @@ public class DescendingRoom extends Room{
      * @return a string describing the interaction.
      */
     public String onEntry(){
-        return "You enter " + desc + ".\nYou notice that there's a trapdoor in the center of the room.";
+        return "You enter a room.\n" + desc + ".\nYou notice that there's a trapdoor in the center of the room.";
     }
 
     /**
